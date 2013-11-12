@@ -1,0 +1,83 @@
+﻿body{
+	background-color: gray;
+	
+}
+#plateau{
+	height: 580px;
+	width: 404px;
+	background-color: blue;
+	margin-left: auto;
+	margin-right: auto;
+}
+.ligne{
+	height: 50px;
+	width: 200px;
+	background-color: #e65353;
+	border:2px black solid;
+}
+.selectedLine{
+	border:2px yellow solid;
+}
+#resultatTemplate{
+	width: 200px;
+	height: 40px;
+	background-color: fuchsia;
+}
+#lignesTemplate{
+	width: 200px;
+	height: 540px;
+	position: relative; 
+	float:left;
+}
+#correctionTemplate{
+	width: 45px;
+	height: 500px;
+	position: relative; 
+	float: left; 
+	background-color: green;
+}
+#pionsTemplate{
+	width: 50px;
+	height: 500px;
+	position: relative; 
+	float: left; 
+}
+#boutons{
+	float: left;
+	clear: right;
+	width: 100px;
+	
+}
+.case{
+	height:40px;
+	margin:5px;
+	float: left;
+	width:40px;
+	background-color: #a6c1ff;
+}
+.selected{
+	background-color: #48ce89;
+}
+.couleur{
+	width: 40px;
+	height: 40px;
+	margin: 5px;
+}
+.couleur0{
+	background-color: #1cf836;
+}
+.couleur1{
+	background-color: #f80707;
+}
+.couleur2{
+	background-color: #f8f81c;
+}
+.couleur3{
+	background-color: #f81cf8;
+}
+
+#valider, #annuler{
+	height: 40px;
+	width: 100px;
+	background-color: #d27d7d;
+}
