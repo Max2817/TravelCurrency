@@ -1,0 +1,191 @@
+﻿html, body, h1, h2, h3, h4, ul, li, ol, a, img, p{
+	margin: 0;
+	padding: 0;
+	font-family: Segoe UI;
+	font-weight: normal;
+	font-size: 19px;
+	color: #333333; 
+	list-style: none;
+	text-decoration: none;
+	border: 0;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+html {
+    
+}
+body{
+	position:absolute;
+    -ms-content-zooming: none;
+    content-zooming: none;
+    width: 100%;
+    height: 100%;
+}
+
+#listeTaux {
+    height:100%;
+    overflow-y:auto;
+    width:40%;
+    float:left;
+}
+#listeTaux ul { 
+    height:100%;
+}
+   
+#listeTaux ul a li {
+    display: block;
+    width: 100%;
+    height: 90px;
+    border-bottom: 1px solid #b9b9b9;
+    border-top: 1px solid #f7f7f7;
+    background: #ebebeb;
+    background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#ffffff) to(#ebebeb));
+    background-image: -webkit-linear-gradient(top, #ffffff, #ebebeb);
+    background-image:    -moz-linear-gradient(top, #ffffff, #ebebeb);
+    background-image:      -o-linear-gradient(top, #ffffff, #ebebeb);
+    background-image:     -ms-linear-gradient(top, #ffffff, #ebebeb);
+    background-image:         linear-gradient(top, #ffffff, #ebebeb);
+}
+
+#listeTaux ul li img.thumbnail {
+  background: #fff;
+  display: inline-block;
+  float: left;
+  padding: 2px;
+  margin-top: 6px;
+  margin-left: 5px;
+  margin-right: 8px;
+  -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+  -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+}
+
+#listeTaux ul a:hover li h2 { color: #7287b1; }
+#listeTaux ul a:hover li p.taux { color: #757575; }
+
+#listeTaux ul a:hover li {
+background: #efefef;
+background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#ffffff) to(#efefef));
+background-image: -webkit-linear-gradient(top, #ffffff, #efefef);
+background-image:    -moz-linear-gradient(top, #ffffff, #efefef);
+background-image:      -o-linear-gradient(top, #ffffff, #efefef);
+background-image:         linear-gradient(top, #ffffff, #efefef);
+}
+
+#rightFragment {
+    float:right;
+    width:60%;
+    height:100%;  
+}
+#photo {
+    /*Nothing for the moment*/
+    max-width:100%;
+    height : 100%;
+    background-image : url('http://www.speikboden.it/_medien/bilder/loader2.gif');
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+
+img#imgCountry {
+    /* Set the width and height to the size of its container */
+    width : 100%;
+}
+#legende {
+    height:30px;
+    width:100%;
+    background-color:blue;
+    display:block;
+    margin:0;
+}
+#navcontainer {
+    height:100%;
+    float:right;
+}
+#navlist {
+    height: 100%;
+}
+#navlist li {
+  position:relative;
+  float:left;
+  width:auto;
+  height:100%;
+  background-color:yellow;
+}
+
+
+/* Smartphones (portrait and landscape) ----------- */
+@media only screen 
+and (min-device-width : 320px) 
+and (max-device-width : 480px) {
+    /* Styles */
+    #listeTaux ul li h2 { font-size: 1.75em; }
+
+    #listeTaux ul li img.thumbnail { margin-top: 2px; }
+}
+
+/* Smartphones (landscape) ----------- */
+@media only screen 
+and (min-width : 321px) {
+    /* Styles */
+}
+
+/* Smartphones (portrait) ----------- */
+@media only screen 
+and (max-width : 320px) {
+    /* Styles */
+    #listeTaux ul li p.taux { display: none; }
+}
+
+/* iPads (portrait and landscape) ----------- */
+@media only screen 
+and (min-device-width : 768px) 
+and (max-device-width : 1024px) {
+    /* Styles */
+}
+
+/* iPads (landscape) ----------- */
+@media only screen 
+and (min-device-width : 768px) 
+and (max-device-width : 1024px) 
+and (orientation : landscape) {
+    /* Styles */
+}
+
+/* iPads (portrait) ----------- */
+@media only screen 
+and (min-device-width : 768px) 
+and (max-device-width : 1024px) 
+and (orientation : portrait) {
+    /* Styles */
+}
+
+/* Desktops and laptops ----------- */
+@media only screen 
+and (min-width : 1224px) {
+    /* Styles */
+}
+
+/* Large screens ----------- */
+@media only screen 
+and (min-width : 1824px) {
+    /* Styles */
+}
+
+/* iPhone 4 ----------- */
+@media
+only screen and (-webkit-min-device-pixel-ratio : 1.5),
+only screen and (min-device-pixel-ratio : 1.5) {
+    /* Styles */
+}
+
+
+
+
+/** clearfix **/
+.clearfix:after { content: "."; display: block; clear: both; visibility: hidden; line-height: 0; height: 0; }
+.clearfix { display: inline-block; }
+ 

@@ -1,0 +1,135 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<devises>
+  <devise>
+    <currency>USD</currency>
+    <name>US dollar</name>
+  </devise>
+  <devise>
+    <currency>JPY</currency>
+    <name>Japanese yen</name>
+  </devise>
+  <devise>
+    <currency>BGN</currency>
+    <name>Bulgarian lev</name>
+  </devise>
+  <devise>
+    <currency>CZK</currency>
+    <name>Czech koruna</name>
+  </devise>
+  <devise>
+    <currency>DKK</currency>
+    <name>Danish krone</name>
+  </devise>
+  <devise>
+    <currency>GBP</currency>
+    <name>Pound sterling</name>
+  </devise>
+  <devise>
+    <currency>HUF</currency>
+    <name>Hungarian forint</name>
+  </devise>
+  <devise>
+    <currency>LTL</currency>
+    <name>Lithuanian litas</name>
+  </devise>
+  <devise>
+    <currency>LVL</currency>
+    <name>Latvian lats</name>
+  </devise>
+  <devise>
+    <currency>PLN</currency>
+    <name>Polish zloty</name>
+  </devise>
+  <devise>
+    <currency>RON</currency>
+    <name>New Romanian leu</name>
+  </devise>
+  <devise>
+    <currency>SEK</currency>
+    <name>Swedish krona</name>
+  </devise>
+  <devise>
+    <currency>CHF</currency>
+    <name>Swiss franc</name>
+  </devise>
+  <devise>
+    <currency>NOK</currency>
+    <name>Norwegian krone</name>
+  </devise>
+  <devise>
+    <currency>HRK</currency>
+    <name>Croatian kuna</name>
+  </devise>
+  <devise>
+    <currency>RUB</currency>
+    <name>Russian rouble</name>
+  </devise>
+  <devise>
+    <currency>TRY</currency>
+    <name>Turkish lira</name>
+  </devise>
+  <devise>
+    <currency>AUD</currency>
+    <name>Australian dollar</name>
+  </devise>
+  <devise>
+    <currency>BRL</currency>
+    <name>Brasilian real</name>
+  </devise>
+  <devise>
+    <currency>CAD</currency>
+    <name>Canadian dollar</name>
+  </devise>
+  <devise>
+    <currency>CNY</currency>
+    <name>Chinese yuan renminbi</name>
+  </devise>
+  <devise>
+    <currency>HKD</currency>
+    <name>Hong Kong dollar</name>
+  </devise>
+  <devise>
+    <currency>IDR</currency>
+    <name>Indonesian rupiah</name>
+  </devise>
+  <devise>
+    <currency>ILS</currency>
+    <name>Israeli shekel</name>
+  </devise>
+  <devise>
+    <currency>INR</currency>
+    <name>Indian rupee</name>
+  </devise>
+  <devise>
+    <currency>KRW</currency>
+    <name>South Korean won</name>
+  </devise>
+  <devise>
+    <currency>MXN</currency>
+    <name>Mexican peso</name>
+  </devise>
+  <devise>
+    <currency>MYR</currency>
+    <name>Malaysian ringgit</name>
+  </devise>
+  <devise>
+    <currency>NZD</currency>
+    <name>New Zealand dollar</name>
+  </devise>
+  <devise>
+    <currency>PHP</currency>
+    <name>Philippine peso</name>
+  </devise>
+  <devise>
+    <currency>SGD</currency>
+    <name>Singapore dollar</name>
+  </devise>
+  <devise>
+    <currency>THB</currency>
+    <name>Thai baht</name>
+  </devise>
+  <devise>
+    <currency>ZAR</currency>
+    <name>South African rand</name>
+  </devise>
+</devises>
