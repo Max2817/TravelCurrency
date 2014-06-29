@@ -4,7 +4,6 @@
 	font-family: Segoe UI;
 	font-weight: normal;
 	font-size: 19px;
-	color: #333333; 
 	list-style: none;
 	text-decoration: none;
 	border: 0;
@@ -14,10 +13,18 @@
 	-moz-user-select: none;
 	-ms-user-select: none;
 	user-select: none;
-}
-html {
     
 }
+html {
+    width:100%;
+    height:100%;
+    background-image : url('../images/loader.gif');
+    background-position: center center;
+    background-repeat: no-repeat;
+    margin: auto;
+}
+
+
 body{
 	position:absolute;
     -ms-content-zooming: none;
@@ -26,23 +33,32 @@ body{
     height: 100%;
 }
 
+
+
+
 #listeTaux {
+    width:100%;
     height:100%;
-    overflow-y:auto;
-    width:40%;
     float:left;
 }
+
+#listeTaux #entete {
+    position: relative;
+    height:12%;
+    background-color: beige;
+}
+
 #listeTaux ul { 
-    height:100%;
+    overflow-y:auto;
+    height:88%;
 }
    
 #listeTaux ul a li {
     display: block;
     width: 100%;
-    height: 90px;
+    height: 12%;
     border-bottom: 1px solid #b9b9b9;
     border-top: 1px solid #f7f7f7;
-    background: #ebebeb;
     background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#ffffff) to(#ebebeb));
     background-image: -webkit-linear-gradient(top, #ffffff, #ebebeb);
     background-image:    -moz-linear-gradient(top, #ffffff, #ebebeb);
@@ -51,7 +67,18 @@ body{
     background-image:         linear-gradient(top, #ffffff, #ebebeb);
 }
 
-#listeTaux ul li img.thumbnail {
+#listeTaux ul a li.selected {
+    color: white;
+    background: #444; 
+    background: -webkit-linear-gradient( #555, #2C2C2C); 
+    background: -moz-linear-gradient( #555, #2C2C2C); 
+    background: -ms-linear-gradient( #555, #2C2C2C); 
+    background: -o-linear-gradient( #555, #2C2C2C); 
+    background: linear-gradient( #555, #2C2C2C); 
+    box-shadow: 1px 1px 10px black inset, 0 1px 0 rgba( 255, 255, 255, 0.4);
+}
+
+#listeTaux ul li img.thumbnail, #entete img.thumbnail {
   background: #fff;
   display: inline-block;
   float: left;
@@ -64,35 +91,68 @@ body{
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
 }
 
-#listeTaux ul a:hover li h2 { color: #7287b1; }
-#listeTaux ul a:hover li p.taux { color: #757575; }
+/*#listeTaux ul a:hover li h2 { color: #7287b1; }
+#listeTaux ul a:hover li p.taux { color: #757575; }*/
+#listeTaux ul a li.selected h2 { color: white; }
+#listeTaux ul a li.selected p.taux { color: white; }
 
-#listeTaux ul a:hover li {
+/*#listeTaux ul a:hover li {
 background: #efefef;
 background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#ffffff) to(#efefef));
 background-image: -webkit-linear-gradient(top, #ffffff, #efefef);
 background-image:    -moz-linear-gradient(top, #ffffff, #efefef);
 background-image:      -o-linear-gradient(top, #ffffff, #efefef);
 background-image:         linear-gradient(top, #ffffff, #efefef);
-}
+}*/
 
+#leftFragment {
+    float:left;
+    width:30%;
+    height:100%;  
+}
 #rightFragment {
     float:right;
-    width:60%;
+    width:70%;
     height:100%;  
 }
 #photo {
-    /*Nothing for the moment*/
-    max-width:100%;
-    height : 100%;
-    background-image : url('http://www.speikboden.it/_medien/bilder/loader2.gif');
+    height : 50%;
     background-position: center center;
     background-repeat: no-repeat;
+}
+
+#photo .black {
+  position: relative;
+  left: 0;
+  bottom: 80px;
+  width: 100%;
+  padding: 10px 20px;
+  height: 70px;
+  background: linear-gradient(to top,
+     rgba(0,0,0, 1), 
+     rgba(0,0,0, 0) 
+  );
+}   
+  
+#photo .black p {
+  color: white;
+  font-size: 48px;
+  font-family:Tahoma;
+}
+  
+#photo .black .follow {
+  margin-top: 5px;
+  position: absolute;
+  right: 50px;
+  top:30px;
+  font-size: 12px;
+  font-family:verdana;
 }
 
 img#imgCountry {
     /* Set the width and height to the size of its container */
     width : 100%;
+    height: 100%;
 }
 #legende {
     height:30px;
@@ -101,21 +161,45 @@ img#imgCountry {
     display:block;
     margin:0;
 }
+
 #navcontainer {
-    height:100%;
-    float:right;
-}
-#navlist {
-    height: 100%;
-}
-#navlist li {
-  position:relative;
-  float:left;
-  width:auto;
-  height:100%;
-  background-color:yellow;
+    text-align: center; 
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    height:50%;
 }
 
+#navcontainer ul {
+    overflow-x: scroll;
+    overflow-y: hidden;
+    height: 100%;
+    white-space: nowrap;
+    direction: rtl;
+    background-color: #5496ff;
+}
+#navcontainer li {
+    height: 100%;
+    display: inline-block;
+    vertical-align: baseline;
+    background-color: white;
+    transition:height 2s;
+    -moz-transition:height 2s; /* Firefox 4 */
+    -webkit-transition:height 2s; /* Safari and Chrome */
+    -o-transition:height 2s; /* Opera */
+    width:4%;
+}
+
+#navcontainer li:hover {
+   background-color: red;
+}
+#navcontainer li.year {
+    height: 100%;
+    display: inline-block;
+    vertical-align: baseline;
+    background-color: yellow;
+    width:6%;
+}
 
 /* Smartphones (portrait and landscape) ----------- */
 @media only screen 
@@ -188,4 +272,5 @@ only screen and (min-device-pixel-ratio : 1.5) {
 /** clearfix **/
 .clearfix:after { content: "."; display: block; clear: both; visibility: hidden; line-height: 0; height: 0; }
 .clearfix { display: inline-block; }
+
  

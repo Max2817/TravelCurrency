@@ -1,12 +1,4 @@
-﻿/**
-* SPECIFIQUE WINDOWS 8
-* Framework mobilité
-*
-* Nom du fichier : $Archive:   O:/Windows8/Elipso/archives/kernel_windows8/Elipso/kernel/kernel-specific.jsv  $
-* Version        : $Revision:   1.6  $
-* Auteur         : SOPRA Group - $Author:   lgardon  $
-* Modifié le     : $Date:   Jan 14 2013 18:03:00  $
-*/
+﻿
 
 //Register for the Suspending event and call suspendingHandler when received
 Windows.UI.WebUI.WebUIApplication.addEventListener("suspending", suspendingHandler);
@@ -27,30 +19,51 @@ function resumingHandler() {
 
 var kernelSpecific = (function () {
 
-    var isPopupErrorShown = false;
 
     return {
         // Affiche la popup standard de gestion d'anomalie
-        popupError: function (/*@type(String)*/ erreur, /*@type(String)*/ currentContext, /*@type(String)*/ currentSession) {
-            if (!isPopupErrorShown) {
-                isPopupErrorShown = true;
-                var msg = new Windows.UI.Popups.MessageDialog(i18n["msgErreurMessage"], i18n["msgErreur"]);
-                // S'il n'y a pas de session active on se redirige vers l'écran de connexion
-                if (!session.sessionUser || session.sessionUser == "")
-                    msg.commands.append(new Windows.UI.Popups.UICommand(i18n["lblRetourAccueil"], function () { setTimeout(kernel.navigate("/pages/connexion/connexion.html", {}), 10); }));
-                else
-                    msg.commands.append(new Windows.UI.Popups.UICommand(i18n["lblRetourAccueil"], function () { setTimeout(kernel.navigate("/pages/accueil/accueil.html", {}), 10); }));
-                msg.commands.append(new Windows.UI.Popups.UICommand(i18n["lblContinuer"], function () {
-                    setTimeout(isPopupErrorShown = false, 10);
-                }));
-                msg.commands.append(new Windows.UI.Popups.UICommand(i18n["lblDetailErreur"], function () {
-                    setTimeout(kernel.navigate("/pages/erreur/erreur.html", { erreur: erreur, context: currentContext, session: currentSession }), 10);
-                }));
-                msg.showAsync();
-            }
-            else {
-                console.warn("L'erreur suivante n'a pas été affichée en popup : " + erreur);
-            }
+        popupException: function (/*@type(String)*/ erreur) {
+            syncAPIHelper.loadApplicationFile({ url: "/js/pages/exception/exception.html" }
+                , function (response) {
+                    kernel.setContentToTagNameElement(document.getElementById("erreur"), response);
+                    kernel.setContentToTagNameElement(document.getElementById("exception_title"), "Oups, il semble que nous soyons tombés sur une erreur !");
+                    kernel.setContentToTagNameElement(document.getElementById("exception_content"), erreur);
+                    document.getElementById("modal-outer").style.display = "block";
+                    document.getElementById("exception-close").addEventListener("click", function () {
+                        document.getElementById("modal-outer").style.display = "none";
+                    }, false);
+                },
+                function (error) {
+                    console.log(error);
+                }
+            );
+            
+           // setTimeout(kernel.navigate("/pages/erreur/erreur.html", { erreur: erreur, context: currentContext, session: currentSession }), 10);
+        },
+
+        popupOneButton: function (/*@type(String)*/ erreur, buttonName, validateCallBack, tempMsg) {
+            syncAPIHelper.loadApplicationFile({ url: "/js/pages/popup/popup.html" }
+                , function (response) {
+                    kernel.setContentToTagNameElement(document.getElementById("erreur"), response);
+                    kernel.setContentToTagNameElement(document.getElementById("popup_title"), "Oups, il semble que nous soyons tombés sur une erreur !");
+                    kernel.setContentToTagNameElement(document.getElementById("popup_content"), erreur);
+                    if (tempMsg)
+                        kernel.setContentToTagNameElement(document.getElementById("popup_temp_msg"), tempMsg);
+                    document.getElementById("modal-outer").style.display = "block";
+                    document.getElementById("validate_button").innerText = buttonName;
+                    document.getElementById("validate_button").addEventListener('click',
+                        function () {
+                            validateCallBack();
+                        },
+                        false
+                    );
+                },
+                function (error) {
+                    kernelSpecific.popupException(error);
+                }
+            );
+
+            // setTimeout(kernel.navigate("/pages/erreur/erreur.html", { erreur: erreur, context: currentContext, session: currentSession }), 10);
         },
 
         // Retourne le chemin racine de l'application

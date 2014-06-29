@@ -49,14 +49,21 @@
     <DefaultLanguage>fr-FR</DefaultLanguage>
     <PackageCertificateKeyFile>TravelCurrency_TemporaryKey.pfx</PackageCertificateKeyFile>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <OutputPath>
+    </OutputPath>
+  </PropertyGroup>
   <ItemGroup>
     <AppxManifest Include="package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
     <Content Include="css\default.css" />
+    <Content Include="css\focal-point.css" />
     <Content Include="css\game.css" />
     <Content Include="css\liste_taux.css" />
     <Content Include="default.html" />
+    <Content Include="images\default-image.png" />
+    <Content Include="images\default.jpg" />
     <Content Include="images\flags\128\ad.png" />
     <Content Include="images\flags\128\ae.png" />
     <Content Include="images\flags\128\af.png" />
@@ -126,6 +133,7 @@
     <Content Include="images\flags\128\er.png" />
     <Content Include="images\flags\128\es.png" />
     <Content Include="images\flags\128\et.png" />
+    <Content Include="images\flags\128\eu.png" />
     <Content Include="images\flags\128\fi.png" />
     <Content Include="images\flags\128\fj.png" />
     <Content Include="images\flags\128\fk.png" />
@@ -316,7 +324,6 @@
     <Content Include="images\flags\128\_CIS.png" />
     <Content Include="images\flags\128\_Commonwealth.png" />
     <Content Include="images\flags\128\_England.png" />
-    <Content Include="images\flags\128\_European-Union.png" />
     <Content Include="images\flags\128\_FAO.png" />
     <Content Include="images\flags\128\_Galicia.png" />
     <Content Include="images\flags\128\_IAEA.png" />
@@ -410,6 +417,7 @@
     <Content Include="images\flags\16\er.png" />
     <Content Include="images\flags\16\es.png" />
     <Content Include="images\flags\16\et.png" />
+    <Content Include="images\flags\16\eu.png" />
     <Content Include="images\flags\16\fi.png" />
     <Content Include="images\flags\16\fj.png" />
     <Content Include="images\flags\16\fk.png" />
@@ -600,7 +608,6 @@
     <Content Include="images\flags\16\_CIS.png" />
     <Content Include="images\flags\16\_Commonwealth.png" />
     <Content Include="images\flags\16\_England.png" />
-    <Content Include="images\flags\16\_European Union.png" />
     <Content Include="images\flags\16\_FAO.png" />
     <Content Include="images\flags\16\_Galicia.png" />
     <Content Include="images\flags\16\_IAEA.png" />
@@ -694,6 +701,7 @@
     <Content Include="images\flags\24\er.png" />
     <Content Include="images\flags\24\es.png" />
     <Content Include="images\flags\24\et.png" />
+    <Content Include="images\flags\24\eu.png" />
     <Content Include="images\flags\24\fi.png" />
     <Content Include="images\flags\24\fj.png" />
     <Content Include="images\flags\24\fk.png" />
@@ -884,7 +892,6 @@
     <Content Include="images\flags\24\_CIS.png" />
     <Content Include="images\flags\24\_Commonwealth.png" />
     <Content Include="images\flags\24\_England.png" />
-    <Content Include="images\flags\24\_European Union.png" />
     <Content Include="images\flags\24\_FAO.png" />
     <Content Include="images\flags\24\_Galicia.png" />
     <Content Include="images\flags\24\_IAEA.png" />
@@ -978,6 +985,7 @@
     <Content Include="images\flags\32\er.png" />
     <Content Include="images\flags\32\es.png" />
     <Content Include="images\flags\32\et.png" />
+    <Content Include="images\flags\32\eu.png" />
     <Content Include="images\flags\32\fi.png" />
     <Content Include="images\flags\32\fj.png" />
     <Content Include="images\flags\32\fk.png" />
@@ -1168,7 +1176,6 @@
     <Content Include="images\flags\32\_CIS.png" />
     <Content Include="images\flags\32\_Commonwealth.png" />
     <Content Include="images\flags\32\_England.png" />
-    <Content Include="images\flags\32\_European Union.png" />
     <Content Include="images\flags\32\_FAO.png" />
     <Content Include="images\flags\32\_Galicia.png" />
     <Content Include="images\flags\32\_IAEA.png" />
@@ -1262,6 +1269,7 @@
     <Content Include="images\flags\48\er.png" />
     <Content Include="images\flags\48\es.png" />
     <Content Include="images\flags\48\et.png" />
+    <Content Include="images\flags\48\eu.png" />
     <Content Include="images\flags\48\fi.png" />
     <Content Include="images\flags\48\fj.png" />
     <Content Include="images\flags\48\fk.png" />
@@ -1452,7 +1460,6 @@
     <Content Include="images\flags\48\_CIS.png" />
     <Content Include="images\flags\48\_Commonwealth.png" />
     <Content Include="images\flags\48\_England.png" />
-    <Content Include="images\flags\48\_European Union.png" />
     <Content Include="images\flags\48\_FAO.png" />
     <Content Include="images\flags\48\_Galicia.png" />
     <Content Include="images\flags\48\_IAEA.png" />
@@ -1546,6 +1553,7 @@
     <Content Include="images\flags\64\er.png" />
     <Content Include="images\flags\64\es.png" />
     <Content Include="images\flags\64\et.png" />
+    <Content Include="images\flags\64\eu.png" />
     <Content Include="images\flags\64\fi.png" />
     <Content Include="images\flags\64\fj.png" />
     <Content Include="images\flags\64\fk.png" />
@@ -1736,7 +1744,6 @@
     <Content Include="images\flags\64\_CIS.png" />
     <Content Include="images\flags\64\_Commonwealth.png" />
     <Content Include="images\flags\64\_England.png" />
-    <Content Include="images\flags\64\_European Union.png" />
     <Content Include="images\flags\64\_FAO.png" />
     <Content Include="images\flags\64\_Galicia.png" />
     <Content Include="images\flags\64\_IAEA.png" />
@@ -1761,6 +1768,7 @@
     <Content Include="images\flags\64\_Wales.png" />
     <Content Include="images\flags\64\_WHO.png" />
     <Content Include="images\flags\64\_WTO.png" />
+    <Content Include="images\loader.gif" />
     <Content Include="images\logo.png" />
     <Content Include="images\smalllogo.png" />
     <Content Include="images\splashscreen.png" />
@@ -1768,15 +1776,25 @@
     <Content Include="js\data\devises.js" />
     <Content Include="js\data\devises.xml" />
     <Content Include="js\default.js" />
+    <Content Include="js\helpers\apiHelper.js" />
+    <Content Include="js\helpers\dataHelper.js" />
+    <Content Include="js\helpers\flickrHelper.js" />
     <Content Include="js\helpers\formatHelper.js" />
+    <Content Include="js\helpers\q.js" />
+    <Content Include="js\helpers\syncAPIHelper.js" />
     <Content Include="js\helpers\uiHelper.js" />
     <Content Include="js\kernel\includes.js" />
     <Content Include="js\kernel\kernel.js" />
     <Content Include="js\kernel\kernelSpecific.js" />
     <Content Include="js\lang\fr\global.js" />
     <Content Include="js\lang\fr\i18n.js" />
-    <Content Include="js\pages\taux\liste_taux.html" />
-    <Content Include="js\pages\taux\liste_taux.js" />
+    <Content Include="js\pages\popup\popup.css" />
+    <Content Include="js\pages\popup\popup.html" />
+    <Content Include="js\pages\exception\exception.css" />
+    <Content Include="js\pages\exception\exception.html" />
+    <Content Include="js\pages\taux\listeTaux.html" />
+    <Content Include="js\pages\taux\listeTaux.js" />
+    <Content Include="js\pages\taux\listeTauxTemplates.js" />
     <None Include="TravelCurrency_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
