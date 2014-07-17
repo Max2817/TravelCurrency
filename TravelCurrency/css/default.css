@@ -6,91 +6,313 @@
 
 #loading_background {
     width:100vw;
-    height:100vh; 
+    height:100vh;
+    background-image : url('../images/loader.gif');
+    background-position: center center;
+    background-repeat: no-repeat; 
 }
 
 
 /* modal wrapper */
-	#modal-outer{
-		display: none;
-		position: absolute;
-		top: 0;
-		right: 0;
-		bottom: 0;
-		left: 0;
-		z-index: 9999;
-		background: gray;
-		background: rgba(0, 0, 0, .5);
-		filter: alpha(opacity=50);
-		-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
-	}
-	/*#modal-outer:target {
-		display: block;
-	}*/
+#modal-outer{
+	display: none;
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	z-index: 9999;
+	background: gray;
+	background: rgba(0, 0, 0, .5);
+	filter: alpha(opacity=50);
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+}
+/*#modal-outer:target {
+	display: block;
+}*/
 
-	/* modal inner */
-	#modal{
-		width: 460px;
-		height: auto;
-		visibility: visible;
-		display: block;
-		/**/
-		z-index: 6000;
-		padding: 20px;
-		position: relative;
-		margin: 90px auto 40px;
-		overflow: visible;
-		background-color: white;
-		border: 1px solid #CCC	9;
-		-webkit-background-clip: padding-box;
-		-moz-background-clip: padding;
-		background-clip: padding-box;
-		-webkit-border-radius: 6px;
-		-moz-border-radius: 6px;
-		border-radius: 6px;
-		-webkit-box-shadow: 0 4px 12px rgba(0, 0, 0, .4),inset 0 1px 0 rgba(255, 255, 255, .5);
-		-moz-box-shadow: 0 4px 12px rgba(0, 0, 0, .4),inset 0 1px 0 rgba(255, 255, 255, .5);
-		box-shadow: 0 4px 12px rgba(0, 0, 0, .4),inset 0 1px 0 rgba(255, 255, 255, .5);
-	}
+/* modal inner */
+#modal{
+	width: 460px;
+	height: auto;
+	visibility: visible;
+	display: block;
+	/**/
+	z-index: 6000;
+	padding: 20px;
+	position: relative;
+	margin: 90px auto 40px;
+	overflow: visible;
+	background-color: white;
+	border: 1px solid #CCC	9;
+	-webkit-background-clip: padding-box;
+	-moz-background-clip: padding;
+	background-clip: padding-box;
+	-webkit-border-radius: 6px;
+	-moz-border-radius: 6px;
+	border-radius: 6px;
+	-webkit-box-shadow: 0 4px 12px rgba(0, 0, 0, .4),inset 0 1px 0 rgba(255, 255, 255, .5);
+	-moz-box-shadow: 0 4px 12px rgba(0, 0, 0, .4),inset 0 1px 0 rgba(255, 255, 255, .5);
+	box-shadow: 0 4px 12px rgba(0, 0, 0, .4),inset 0 1px 0 rgba(255, 255, 255, .5);
+}
 
-	/* modal close button */
-	#modal a[href="#close"] {
-		position: absolute;
-		right: 0;
-		top: 0;
-		color: transparent;
-		font-size: 0px;
-	}
-	#modal a[href="#close"]:focus {
-		outline: none;
-	}
-	#modal a[href="#close"]:after {
-		content: 'X';
-		display: block;
-		position: absolute;
-		right: -16px;
-		top: -16px;
-		width: 20px;
-		height: 15px;
-		padding: 11px 7px 8px 7px;
-		text-decoration: none;
-		text-shadow: none;
-		text-align: center;
-		background: black;
-		color: white;
-		border: 3px solid white;
-		-moz-border-radius: 20px;
-		border-radius: 40px;
-		-webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
-		-moz-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
-		box-shadow: 0 1px 3px rgba(0,0,0,0.5);
-		font-size: 12px;
-		font-weight: bold;
-	}
-	#modal a[href="#close"]:focus:after {
-		outline: 1px solid #000;
-	}
+/* modal close button */
+#modal a[href="#close"] {
+	position: absolute;
+	right: 0;
+	top: 0;
+	color: transparent;
+	font-size: 0px;
+}
+#modal a[href="#close"]:focus {
+	outline: none;
+}
+#modal a[href="#close"]:after {
+	content: 'X';
+	display: block;
+	position: absolute;
+	right: -16px;
+	top: -16px;
+	width: 20px;
+	height: 15px;
+	padding: 11px 7px 8px 7px;
+	text-decoration: none;
+	text-shadow: none;
+	text-align: center;
+	background: black;
+	color: white;
+	border: 3px solid white;
+	-moz-border-radius: 20px;
+	border-radius: 40px;
+	-webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+	-moz-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+	box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+	font-size: 12px;
+	font-weight: bold;
+}
+#modal a[href="#close"]:focus:after {
+	outline: 1px solid #000;
+}
 
+/*Début Privacy Policy Spécifique Windows 8*/
+#privid {
+    background-color:#327CB2;
+    height:100%;
+    overflow:scroll;
+    padding:5px;
+}
+
+#privid h1{
+    background-color:white;
+    font-size:28px;
+    padding:4px;
+    margin-bottom:2%;
+}
+#privid h2{
+    font-size:24px;
+    font-weight:bold;
+}
+#privid p{
+    font-size:20px;
+    margin-bottom:2%;
+    margin-top:4%;
+}
+
+.win-appbarclickeater {
+    z-index: 1000;
+    opacity: 0;
+    background-color: Purple;
+    display: none;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    position: fixed;
+    -ms-touch-action: none;
+}
+
+/*
+Settings Pane
+*/
+
+.win-settingsflyout {
+    z-index: 1004;  /* above appbar and below flyouts */
+    border-left: 1px solid;
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 345px; /* 346px - border (1px) */
+    -ms-touch-select: none;
+}
+
+.win-settingsflyout.win-wide {
+    width: 645px; /* 646px - border (1px) */
+}
+
+.win-settingsflyout .win-header {
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-top: 32px;
+    height: 48px;
+}
+
+/* Settings back button is slightly smaller. */
+
+.win-settingsflyout .win-backbutton {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    font-size: 8pt;
+    line-height: 26px;
+    margin-top: 3px;
+}
+
+.win-settingsflyout .win-header .win-label {
+    display: inline-block;
+    padding-left: 40px;
+    font-size: 20pt;
+    line-height: 33px;
+}
+
+.win-settingsflyout .win-content {
+    overflow: auto;
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-top: 33px;
+    height: calc(100% - 112px);
+} 
+
+.win-settingsflyout .win-label {
+    font-size: 20pt;
+    font-weight: 200;
+    line-height: normal;
+}
+
+.win-settingsflyout:-ms-lang(ar, dv, fa, he, ku-Arab, pa-Arab, prs, ps, sd-Arab, syr, ug, ur, qps-plocm) {
+    right: auto;
+    left: 0;
+    border-left: none;
+    border-right: 1px solid;
+}
+
+.win-settingsflyout .win-header .win-label:-ms-lang(ar, dv, fa, he, ku-Arab, pa-Arab, prs, ps, sd-Arab, syr, ug, ur, qps-plocm) {
+    padding-right: 40px;
+    padding-left: 0;
+}
+
+.win-settingsflyout .win-content .win-settings-section {
+    padding-top: 0;
+    padding-bottom: 39px;
+}
+
+.win-settingsflyout .win-content .win-settings-section p {
+    margin: 0;
+    padding-top: 0;
+    padding-bottom: 25px;
+}
+
+.win-settingsflyout .win-content .win-settings-section a {
+    margin: 0;
+    padding-top: 0;
+    padding-bottom: 25px;
+    display:inline-block;
+}
+
+.win-settingsflyout .win-content .win-settings-section .win-toggleswitch  {
+    margin: 0;
+    padding-top: 0;
+    padding-bottom: 20px;
+}
+
+.win-settingsflyout .win-content .win-settings-section label {
+    display:block;
+    padding-bottom: 7px;
+}
+
+.win-settingsflyout .win-content .win-settings-section button,
+.win-settingsflyout .win-content .win-settings-section select,
+.win-settingsflyout .win-content .win-settings-section input[type=button],
+.win-settingsflyout .win-content .win-settings-section input[type=text] {
+    margin-bottom: 25px;  
+    margin-left: 0;
+    margin-right:  20px;
+}
+
+.win-settingsflyout .win-content .win-settings-section input[type=radio] {
+    margin-top: 0;  
+    margin-bottom: 0;  
+    padding-bottom: 15px;
+} 
+
+.win-settingsflyout .win-content .win-settings-section button:-ms-lang(ar, dv, fa, he, ku-Arab, pa-Arab, prs, ps, sd-Arab, syr, ug, ur, qps-plocm) {
+    margin-bottom: 25px;  
+    margin-left: 20px;  
+    margin-right:  0;
+}
+
+.win-settingsflyout .win-content .win-settings-section select:-ms-lang(ar, dv, fa, he, ku-Arab, pa-Arab, prs, ps, sd-Arab, syr, ug, ur, qps-plocm) {
+    margin-bottom: 25px;  
+    margin-left: 20px;  
+    margin-right:  0;
+} 
+
+.win-settingsflyout .win-content .win-settings-section input[type=text]:-ms-lang(ar, dv, fa, he, ku-Arab, pa-Arab, prs, ps, sd-Arab, syr, ug, ur, qps-plocm) {
+    margin-bottom: 25px;  
+    margin-left: 20px;  
+    margin-right:  0;
+}
+
+.win-settingsflyout .win-content .win-settings-section input[type=button]:-ms-lang(ar, dv, fa, he, ku-Arab, pa-Arab, prs, ps, sd-Arab, syr, ug, ur, qps-plocm) {
+    margin-bottom: 25px;  
+    margin-left: 20px;  
+    margin-right:  0;
+}
+
+/*
+Back button.
+*/
+
+.win-backbutton {
+    display: inline-block;
+    min-width: 0;
+    min-height: 0;
+    background-clip: border-box;
+    box-sizing: border-box;
+    border-radius: 50%;
+    border-width: 2px;
+    border-style: solid;
+    padding: 0;
+    text-align: center;
+    /* Normal sizing. */
+    width: 41px;
+    height: 41px;
+    font-size: 14pt;
+    line-height: 37px; /* line-height must match the content box height. */
+    vertical-align: baseline;
+}
+
+.win-backbutton:hover, .win-backbutton:hover:active {
+    border-width: 2px;
+    border-style: solid;
+    border-radius: 50%;
+}
+
+.win-backbutton::before {
+    font-family: "Segoe UI Symbol";
+    font-weight: normal;
+    content: "\E0D5";
+    vertical-align: 50%;
+}
+
+.win-backbutton:-ms-lang(ar, dv, fa, he, ku-Arab, pa-Arab, prs, ps, sd-Arab, syr, ug, ur, qps-plocm)::before {
+    content: "\E0AE";
+}
+
+.win-backbutton:disabled, .win-backbutton:disabled:active {
+    visibility: hidden;
+}
+/*Fin privacy policy*/
 @media screen and (-ms-view-state: fullscreen-landscape) {
 }
 

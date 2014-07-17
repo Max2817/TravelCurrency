@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/2010/manifest">
-  <Identity Name="majateam.TravelCurrency.app" Version="1.0.0.0" Publisher="CN=Nicolas" />
+  <Identity Name="9922MaJaTeam.TravelCurrency" Version="1.0.0.1" Publisher="CN=2393B55F-E6B6-4E11-99E3-81FFAB18801C" />
   <Properties>
-    <DisplayName>TravelCurrency</DisplayName>
-    <PublisherDisplayName>Nicolas</PublisherDisplayName>
+    <DisplayName>Travel Currency</DisplayName>
+    <PublisherDisplayName>MaJa Team</PublisherDisplayName>
     <Logo>images\storelogo.png</Logo>
   </Properties>
   <Prerequisites>
@@ -15,9 +15,13 @@
   </Resources>
   <Applications>
     <Application Id="App" StartPage="default.html">
-      <VisualElements DisplayName="TravelCurrency" Logo="images\logo.png" SmallLogo="images\smalllogo.png" Description="TravelCurrency" ForegroundText="light" BackgroundColor="#464646">
-        <DefaultTile ShowName="allLogos" />
-        <SplashScreen Image="images\splashscreen.png" />
+      <VisualElements DisplayName="Travel Currency" Logo="images\logo\logo.png" SmallLogo="images\smalllogo.png" Description="Application de taux de changes basée sur les taux de la Banque Centrale Européenne" ForegroundText="light" BackgroundColor="#464646">
+        <DefaultTile ShowName="allLogos" WideLogo="Assets\WideLogo.png" ShortName="Travel Currency" />
+        <SplashScreen Image="Assets\SplashScreen.png" BackgroundColor="#ffffff" />
+        <InitialRotationPreference>
+          <Rotation Preference="landscape" />
+          <Rotation Preference="landscapeFlipped" />
+        </InitialRotationPreference>
       </VisualElements>
     </Application>
   </Applications>

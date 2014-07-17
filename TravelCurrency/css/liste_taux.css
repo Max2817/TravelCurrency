@@ -15,13 +15,11 @@
 	user-select: none;
     
 }
-html {
+#content {
     width:100%;
     height:100%;
-    background-image : url('../images/loader.gif');
-    background-position: center center;
-    background-repeat: no-repeat;
-    margin: auto;
+    visibility:hidden;
+    position:relative;
 }
 
 
@@ -44,13 +42,41 @@ body{
 
 #listeTaux #entete {
     position: relative;
-    height:12%;
-    background-color: beige;
+    height:10%;
+    /*background-color: beige¨*/
+    width:100%;
+    display: block;
+    border-bottom: 1px solid #b9b9b9;
+    border-top: 1px solid #f7f7f7;
+    background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#ffffff) to(#c8c8c8));
+    background-image: -webkit-linear-gradient(top, #ffffff, #c8c8c8);
+    background-image:    -moz-linear-gradient(top, #ffffff, #c8c8c8);
+    background-image:      -o-linear-gradient(top, #ffffff, #c8c8c8);
+    background-image:     -ms-linear-gradient(top, #ffffff, #c8c8c8);
+    background-image:         linear-gradient(top, #ffffff, #c8c8c8);
 }
+
+#choosenCurrency {
+    width: 20%;
+    height:100%;
+    float:left;
+}
+#currencyList {
+    width: 75%;
+    height:100%;
+    float:left;
+}
+#changeCurrency {
+    display:table-cell;
+    vertical-align:middle;
+    height:50%;
+    font-size:100%;
+}
+
 
 #listeTaux ul { 
     overflow-y:auto;
-    height:88%;
+    height:90%;
 }
    
 #listeTaux ul a li {
@@ -65,30 +91,31 @@ body{
     background-image:      -o-linear-gradient(top, #ffffff, #ebebeb);
     background-image:     -ms-linear-gradient(top, #ffffff, #ebebeb);
     background-image:         linear-gradient(top, #ffffff, #ebebeb);
+    color: #708090;
 }
 
 #listeTaux ul a li.selected {
     color: white;
     background: #444; 
-    background: -webkit-linear-gradient( #555, #2C2C2C); 
-    background: -moz-linear-gradient( #555, #2C2C2C); 
-    background: -ms-linear-gradient( #555, #2C2C2C); 
-    background: -o-linear-gradient( #555, #2C2C2C); 
-    background: linear-gradient( #555, #2C2C2C); 
+    background: -webkit-linear-gradient( #555555, #090909); 
+    background: -moz-linear-gradient( #555555, #090909); 
+    background: -ms-linear-gradient( #555555, #090909); 
+    background: -o-linear-gradient( #555555, #090909); 
+    background: linear-gradient( #555555, #090909); 
     box-shadow: 1px 1px 10px black inset, 0 1px 0 rgba( 255, 255, 255, 0.4);
 }
 
 #listeTaux ul li img.thumbnail, #entete img.thumbnail {
-  background: #fff;
+  background: #ffffff00;
   display: inline-block;
   float: left;
   padding: 2px;
   margin-top: 6px;
   margin-left: 5px;
   margin-right: 8px;
-  -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+  /*RayDom-webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
   -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);*/
 }
 
 /*#listeTaux ul a:hover li h2 { color: #7287b1; }
@@ -113,18 +140,20 @@ background-image:         linear-gradient(top, #ffffff, #efefef);
 #rightFragment {
     float:right;
     width:70%;
-    height:100%;  
+    height:100%; 
 }
 #photo {
     height : 50%;
-    background-position: center center;
-    background-repeat: no-repeat;
+    position: relative;
+    /*position: relative; width: 200px; height: 150px; border: 1px solid black;*/
 }
 
 #photo .black {
-  position: relative;
+  /*position: relative;
   left: 0;
-  bottom: 80px;
+  bottom: 80px;*/
+  position: absolute;
+  bottom: 0;
   width: 100%;
   padding: 10px 20px;
   height: 70px;
@@ -132,6 +161,7 @@ background-image:         linear-gradient(top, #ffffff, #efefef);
      rgba(0,0,0, 1), 
      rgba(0,0,0, 0) 
   );
+  /*position: absolute; bottom: 0; width: 100%; height: 50px; border: 1px solid red;*/
 }   
   
 #photo .black p {
@@ -148,12 +178,142 @@ background-image:         linear-gradient(top, #ffffff, #efefef);
   font-size: 12px;
   font-family:verdana;
 }
-
-img#imgCountry {
-    /* Set the width and height to the size of its container */
-    width : 100%;
-    height: 100%;
+/* Test Photo */
+.img_wrapper{
+    position: relative;
+    padding-top: 75%;
+    margin-bottom: 40px;
+    background: #fafafa;
+    overflow: hidden;
 }
+
+.img_wrapper img{
+    position: absolute;
+    width: 100%;
+    top: 0;
+    left: 0;
+    opacity: 0;
+  
+    -webkit-transition: opacity .5s;
+    -moz-transition: opacity .5s;
+    -ms-transition: opacity .5s;
+    transition: opacity .5s;
+}
+
+.img_wrapper.loaded img{
+    opacity: 1;
+}
+
+.img_wrapper.loaded .css_spinner{
+    display: none;
+}
+
+/*
+* CSS loading spinner styles for second example.
+* You could also use a background image .gif 
+* on the img_wrapper, or any rotating element.
+*/
+
+.css_spinner{
+	position: absolute;
+	width: 48px;
+	height: 48px;
+	left: 50%;
+	top: 50%;
+	margin: -24px 0 0 -24px;
+	opacity: .3;
+	
+	-webkit-border-radius: 999px;
+	-moz-border-radius: 999px;
+	border-radius: 999px;
+}
+
+.css_spinner .half{
+	position: absolute;
+	width: 24px;
+	height: 48px;
+	top: 0;
+	overflow: hidden;
+}
+
+.css_spinner .left{
+	left: 0px;
+	
+	-webkit-border-radius: 999px 0 0 999px;
+	-moz-border-radius: 999px 0 0 999px;
+	border-radius: 999px 0 0 999px;
+}
+
+.css_spinner .right{
+	left: 24px;
+	
+	-webkit-border-radius: 0 999px 999px 0;
+	-moz-border-radius: 0 999px 999px 0;
+	border-radius: 0 999px 999px 0;
+}
+
+.css_spinner .band{
+	position: absolute;
+	width: 24px;
+	height: 48px;
+	background: #922d8d;
+	
+	-webkit-border-radius: 999px;
+	-moz-border-radius: 999px;
+	border-radius: 999px;
+	
+	-webkit-animation: cssSpinnerRight 1s infinite linear;
+	-moz-animation: cssSpinnerRight 1s infinite linear;
+}
+
+.css_spinner .left .band{
+	left: 0;
+	border-left: 24px solid #fafafa;
+
+	-webkit-animation: cssSpinnerLeft 1s infinite linear;
+	-moz-animation: cssSpinnerLeft 1s infinite linear;
+}
+
+.css_spinner .right .band{
+	right: 0;
+	border-right: 24px solid #fafafa;
+}
+
+@-webkit-keyframes cssSpinnerLeft{
+  0%{-webkit-transform:rotate(0deg)}
+  25%{-webkit-transform:rotate(0deg)}
+  50%{-webkit-transform:rotate(180deg)}
+  75%{-webkit-transform:rotate(180deg)}
+  100%{-webkit-transform:rotate(360deg)}
+}
+
+@-webkit-keyframes cssSpinnerRight{
+  0%{-webkit-transform:rotate(0deg)}
+  25%{-webkit-transform:rotate(180deg)}
+  50%{-webkit-transform:rotate(180deg)}
+  75%{-webkit-transform:rotate(360deg)}
+  100%{-webkit-transform:rotate(360deg)}
+}
+
+@-moz-keyframes cssSpinnerLeft{
+  0%{-moz-transform:rotate(0deg)}
+  25%{-moz-transform:rotate(0deg)}
+  50%{-moz-transform:rotate(180deg)}
+  75%{-moz-transform:rotate(180deg)}
+  100%{-moz-transform:rotate(360deg)}
+}
+
+@-moz-keyframes cssSpinnerRight{
+  0%{-moz-transform:rotate(0deg)}
+  25%{-moz-transform:rotate(180deg)}
+  50%{-moz-transform:rotate(180deg)}
+  75%{-moz-transform:rotate(360deg)}
+  100%{-moz-transform:rotate(360deg)}
+}
+
+/* Fin test photo */
+
+
 #legende {
     height:30px;
     width:100%;
@@ -168,6 +328,65 @@ img#imgCountry {
     display: inline-block;
     width: 100%;
     height:50%;
+    background-color:#ffffff;
+}
+#scale {
+    width:10%;
+    background-color:#F0F0F0;
+    float:left;
+    display:block;
+    height:100%;
+    /*border-right: 1px solid #ebebeb;*/
+}
+#scale-top span {
+   text-align:center;
+}
+#limit-top {
+    width:100%;
+    float:left;
+    display:block;
+    height:10%;
+    position:relative;
+    background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#808080) to(#f0f0f0));
+    background-image: -webkit-linear-gradient(top, #808080, #f0f0f0);
+    background-image:    -moz-linear-gradient(top, #808080, #f0f0f0);
+    background-image:      -o-linear-gradient(top, #808080, #f0f0f0);
+    background-image:     -ms-linear-gradient(top, #808080, #f0f0f0);
+    background-image:         linear-gradient(top, #808080, #f0f0f0);
+}
+#scale-top {
+     width:100%;
+     float:left;
+     display:block;
+     height:15%;
+     position:relative;
+}
+#scale-middle {
+    width:100%;
+    display:block;
+    height:50%;
+    float:left;
+}
+
+#scale-bottom {
+    width:100%;
+    display:block;
+    height:15%;
+    float:left;
+}
+
+#limit-bottom {
+    width:100%;
+    float:left;
+    display:block;
+    height:10%;
+    position:relative;
+    background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#) to(#808080));
+    background-image: -webkit-linear-gradient(top, #f0f0f0, #808080);
+    background-image:    -moz-linear-gradient(top, #f0f0f0, #808080);
+    background-image:      -o-linear-gradient(top, #f0f0f0, #808080);
+    background-image:     -ms-linear-gradient(top, #f0f0f0, #808080);
+    background-image:         linear-gradient(top, #f0f0f0, #808080);
 }
 
 #navcontainer ul {
@@ -176,7 +395,8 @@ img#imgCountry {
     height: 100%;
     white-space: nowrap;
     direction: rtl;
-    background-color: #5496ff;
+    width:90%;
+    background-color: #327CB2;
 }
 #navcontainer li {
     height: 100%;
@@ -190,14 +410,14 @@ img#imgCountry {
     width:4%;
 }
 
-#navcontainer li:hover {
+/*#navcontainer li:hover {
    background-color: red;
-}
+}*/
 #navcontainer li.year {
     height: 100%;
     display: inline-block;
     vertical-align: baseline;
-    background-color: yellow;
+    background-color: #D14626;
     width:6%;
 }
 
@@ -221,7 +441,7 @@ and (min-width : 321px) {
 @media only screen 
 and (max-width : 320px) {
     /* Styles */
-    #listeTaux ul li p.taux { display: none; }
+   /* #listeTaux ul li p.taux { display: none; }*/
 }
 
 /* iPads (portrait and landscape) ----------- */
@@ -273,4 +493,23 @@ only screen and (min-device-pixel-ratio : 1.5) {
 .clearfix:after { content: "."; display: block; clear: both; visibility: hidden; line-height: 0; height: 0; }
 .clearfix { display: inline-block; }
 
- 
+
+@media screen and (max-width:400px) {
+    @-ms-viewport{
+        width:320px;
+        
+    }
+    #rightFragment {
+        width:0%;
+    }
+    #leftFragment {
+        width:100%;
+    }
+    #currencyList {
+        padding-left:5%;
+        width:65%;
+    }
+    .newTauxValue {
+
+    }
+}

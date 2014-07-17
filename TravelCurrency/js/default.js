@@ -17,6 +17,8 @@
         if (args.kind == activation.ActivationKind.launch) {
             if (args.previousExecutionState !== Windows.ApplicationModel.Activation.ApplicationExecutionState.terminated) {
                 setTimeout(function () {
+                    //Suppression des anciens fichiers téléchargés
+                    apiHelper.deleteLocalFolderItems();
                     checkDownloadedData(
                         function () {
                             kernel.navigateSinglePage("/js/pages/taux/listeTaux.html", taux); //template, controleur de ta page
@@ -44,6 +46,14 @@
             kernel.navigate("/pages/connexion/connexion.html", UserService.isUsers());
         }
     });
+    app.onsettings = function (args) {
+        args.detail.applicationcommands = {
+            "privid": {
+                title: "Privacy Policy", href: "js/pages/settings/privacy.html"
+            }
+        };
+        WinJS.UI.SettingsFlyout.populateSettings(args);
+    };
     app.start();
 })();
 
