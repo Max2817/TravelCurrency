@@ -1,24 +1,5 @@
 ﻿
-
-//Register for the Suspending event and call suspendingHandler when received
-Windows.UI.WebUI.WebUIApplication.addEventListener("suspending", suspendingHandler);
-//Handle the suspending event and save the current user session using WinJS sessionState
-function suspendingHandler(eventArgs) {
-    //We are getting suspended
-    console.info("L'application a été suspendue");
-    window.localStorage.setItem("session", JSON.stringify(session));
-    window.localStorage.setItem("context", JSON.stringify(saveContext()));
-}
-
-//Register for the Resuming event and call resumingHandler when received
-Windows.UI.WebUI.WebUIApplication.addEventListener("resuming", resumingHandler);
-function resumingHandler() {
-    //We are getting resumed, in general do nothing
-    console.info("L'application a été réactivée");
-}
-
 var kernelSpecific = (function () {
-
 
     return {
         // Affiche la popup standard de gestion d'anomalie
@@ -29,9 +10,6 @@ var kernelSpecific = (function () {
                     kernel.setContentToTagNameElement(document.getElementById("exception_title"), "Oups, il semble que nous soyons tombés sur une erreur !");
                     kernel.setContentToTagNameElement(document.getElementById("exception_content"), erreur);
                     document.getElementById("modal-outer").style.display = "block";
-                    document.getElementById("exception-close").addEventListener("click", function () {
-                        document.getElementById("modal-outer").style.display = "none";
-                    }, false);
                 },
                 function (error) {
                     console.log(error);

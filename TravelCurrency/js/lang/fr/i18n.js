@@ -14,5 +14,6 @@
     "lblOct": "Oct.",
     "lblNov": ".Nov",
     "lblDec": "Déc.",
-    "lblinvalidMonth": "Mois invalide"
+    "lblinvalidMonth": "Mois invalide",
+    "lblChangeCurrency": "Changer de devise"
 }

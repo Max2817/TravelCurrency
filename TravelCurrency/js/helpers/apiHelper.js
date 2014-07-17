@@ -1,11 +1,4 @@
-/**
-* Librairie liée aux API
-* Nom du fichier : $Archive:   O:/Windows8/Elipso/archives/kernel_windows8/Elipso/helpers/apiHelper.jsv  $
-* Version        : $Revision:   1.34  $
-* Auteur         : SOPRA Group - $Author:   nMartino  $
-* Modifié le     : $Date:   Jul 17 2013 16:47:24  $
-*/
-var apiHelper = (function () {
+﻿var apiHelper = (function () {
     var MAP_WIN_8_FRAME_URI = "ms-appx-web:///";
     var MAP_WIN_8_PAGE_URI = "ms-appx://";
 
@@ -123,13 +116,9 @@ var apiHelper = (function () {
             //Si une date a été spécifiée on l'affiche sinon ce sera la date du jour
             //specifiedDate est sous la forme 'JJ/MM/AAAA'
             var datePickerControl = null;
-            if (elipsoHelper.isEmpty(specifiedDate)) {
-                datePickerControl = new WinJS.UI.DatePicker(datePickerElement);
-            } else {
-                //Passage au format anglais
-                specifiedDate = specifiedDate.split("/")[1] + "/" + specifiedDate.split("/")[0] + "/" + specifiedDate.split("/")[2];
-                datePickerControl = new WinJS.UI.DatePicker(datePickerElement, { current: specifiedDate });
-            }
+            //Passage au format anglais
+            specifiedDate = specifiedDate.split("/")[1] + "/" + specifiedDate.split("/")[0] + "/" + specifiedDate.split("/")[2];
+            datePickerControl = new WinJS.UI.DatePicker(datePickerElement, { current: specifiedDate });
             datePickerControl.datePattern = "{day.integer(2)}";
             datePickerControl.monthPattern = "{month.integer(2)}";
             // Connect event listener
@@ -162,12 +151,8 @@ var apiHelper = (function () {
         },
         setTimePicker: function (/*@type(DOM Element)*/ timePickerElement, /*@type(function)*/ onChangeFunction, /*@type(String)*/ specifiedTime) {
             var timePickerControl = null;
-            if (elipsoHelper.isEmpty(specifiedTime)) {
-                timePickerControl = new WinJS.UI.TimePicker(timePickerElement);
-            } else {
-                specifiedTime = specifiedTime.split("h")[0] + ":" + specifiedTime.split("h")[1] + ":00";
-                timePickerControl = new WinJS.UI.TimePicker(timePickerElement, { current: specifiedTime });
-            }
+            specifiedTime = specifiedTime.split("h")[0] + ":" + specifiedTime.split("h")[1] + ":00";
+            timePickerControl = new WinJS.UI.TimePicker(timePickerElement, { current: specifiedTime });
             timePickerControl.minuteIncrement = 5;
             timePickerControl.hourPattern = "{hour.integer(2)}";
             // Connect event listener
@@ -213,7 +198,7 @@ var apiHelper = (function () {
 
             Windows.Graphics.Printing.PrintManager.showPrintUIAsync();
         },
-        
+
         addUserAccountInPasswordVault: function (username, password) {
             var resource = "DEFAULT";
             var vault = new Windows.Security.Credentials.PasswordVault();
@@ -330,7 +315,7 @@ var apiHelper = (function () {
             Windows.Storage.ApplicationData.current.localFolder.createFileAsync(fileName,
                 Windows.Storage.CreationCollisionOption.replaceExisting).then(function (file) {
                     var buffer = apiHelper.getBufferFromString(fileContent);
-                    Windows.Storage.FileIO. writeBufferAsync(file, buffer).done(function () {
+                    Windows.Storage.FileIO.writeBufferAsync(file, buffer).done(function () {
                         successResponse();
                     },
                     function (error) {
@@ -405,7 +390,7 @@ var apiHelper = (function () {
         getListLogFileItems: function (localFolder, successResponse, errorResponse) {
             var fileItems = new Array();
 
-            if(localFolder == null)
+            if (localFolder == null)
                 localFolder = Windows.Storage.ApplicationData.current.localFolder;
 
             var count = 0;
@@ -462,15 +447,16 @@ var apiHelper = (function () {
             var localFolder = Windows.Storage.ApplicationData.current.localFolder;
             localFolder.getItemsAsync().then(function (items) {
                 items.forEach(function (item) {
-                    //Suppression des editions,
-                    if (item.fileType == ".txt" || item.isOfType(Windows.Storage.StorageItemTypes.folder) || item.fileType == ".gif") {
+                    //Suppression des anciens fichiers differents de la date du jour, old, pref et url_photos
+                    //if (item.fileType == ".txt" || item.isOfType(Windows.Storage.StorageItemTypes.folder) || item.fileType == ".gif") {
+                    if (item.name != "old" && item.name != "url_photos" && item.name != "pref" && item.name != formatHelper.getDateYYYYMMDD().toString()) {
                         item.deleteAsync();
                     }
                 });
             });
         },
         //Récup des infos réseau
-        getNetworkInformation: function(){
+        getNetworkInformation: function () {
             return Windows.Networking.Connectivity.NetworkInformation;
         },
         //récupère le type de connection (Ethernet, 3G, etc...)
@@ -479,8 +465,7 @@ var apiHelper = (function () {
             //Switch pour récup d'autres infos plus tard
             if (networkInfo == null)
                 return _i18n.lblAucun;
-            switch (networkInfo.getInternetConnectionProfile().networkAdapter.ianaInterfaceType)
-            {
+            switch (networkInfo.getInternetConnectionProfile().networkAdapter.ianaInterfaceType) {
                 case 6:
                     return _i18n.lblEthernet;
                 case 71:
@@ -489,7 +474,7 @@ var apiHelper = (function () {
                 case 244:
                     return _i18n.Mobile;
             }
- 
+
             return _i18n.Inconnue;
         },
         //permet d'être notifié si le réseau change (ex: 3G -> WiFi...)

@@ -25,7 +25,6 @@
     height: auto;
 }
 
-@media all and (max-width: 767px) {
 
     /* 4x3 Landscape Shape (Default) */
     .focal-point div {
@@ -246,5 +245,4 @@
         margin-right: -6em;
     }
 
-}body {
-}
+

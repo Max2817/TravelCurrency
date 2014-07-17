@@ -11,7 +11,7 @@
             "USD": {
                 fileName: "US dollar",
                 flag: "us.png",
-                keywords: "USA mountain"
+                keywords: "New York City Wallstreet"
             },
             "JPY": {
                 fileName: "Japanese yen",

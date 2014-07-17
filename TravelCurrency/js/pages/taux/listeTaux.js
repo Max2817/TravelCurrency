@@ -1,5 +1,6 @@
 ﻿/// <reference path="../../helpers/uiHelper.js" />
 /// <reference path="../../kernel/kernel.js" />
+/// <reference path="../../helpers/dataHelper.js" />
 /// <reference path="listeTauxTemplates.js" />
 var taux = (function () {
     var _referenceCurrency = "EUR";
@@ -9,17 +10,25 @@ var taux = (function () {
     var _referenceCurrencyData, _currencyList = {};
     var _photoURL, _listePhotosURL = null;
 
-    function initializeData(listeNouveauxTaux, listeAnciensTaux, listePhotosURL) {
+    function initializeData(listeNouveauxTaux, listeAnciensTaux, listePhotosURL, preferences) {
+        if (preferences) {
+            getPreferences(preferences);
+        }
         getNewData(listeNouveauxTaux, listeAnciensTaux);
-        _listePhotosURL = listePhotosURL; 
+        _listePhotosURL = listePhotosURL;
         refresh();
+        //on enlève la wheel et on met le contenu
+        if (document.getElementById("content"))
+            document.getElementById("content").style.visibility = 'visible';
     }
     
     function refresh() {
         setCurrencyList();
         uiHelper.pushContent("listeTaux", listeTauxTemplates.getListeNouveauxTauxTemplate(_referenceCurrencyData, _nouveauxTaux[_referenceCurrency]));
-        if (document.getElementById("li_" + _currentCountry))
+        if (document.getElementById("li_" + _currentCountry)) {
             document.getElementById("li_" + _currentCountry).classList.add("selected");
+            document.getElementById("li_" + _currentCountry).scrollIntoView();
+        }
         refreshPhotoOldList()
     }
 
@@ -28,19 +37,13 @@ var taux = (function () {
         uiHelper.pushContent("photo", listeTauxTemplates.getPhotoTemplate(_photoURL, _currentCountry));
         var anciensTaux = _nouveauxTaux[_referenceCurrency][_currentCountry].old;
         uiHelper.pushContent("navcontainer", listeTauxTemplates.getListeAnciensTauxTemplate(anciensTaux));
-
-
-
         setTimeout(function () {
             for (var i = 0; i < anciensTaux.values.length; i++) {
                 var gap = anciensTaux.max - anciensTaux.min;
-
-                document.getElementById("old_" + i).style.height = ((100 - Math.floor(((anciensTaux.values[i].rate - anciensTaux.min) * (80/gap))))-10) + "%";
+                if (document.getElementById("old_" + i))
+                    document.getElementById("old_" + i).style.height = ((100 - Math.floor(((anciensTaux.values[i].rate - anciensTaux.min) * (80/gap))))-10) + "%";
             }
         }, 500);
-        //document.getElementById("toto").style.width = '300px';
-       //document.getElementById("toto").classList.remove("horizTranslate");
-       // document.getElementById("toto").classList.add("horizTranslate");
     }
 
     function setCurrencyList() {
@@ -61,10 +64,22 @@ var taux = (function () {
             if (document.getElementById("currency_" + listeTaux[index].currency)) {
                 document.getElementById("currency_" + listeTaux[index].currency).addEventListener("click",
                 function () {
-                    document.getElementById("li_" + _currentCountry).classList.remove("selected");
-                    _currentCountry = this.getAttribute("data-currency");
-                    refreshPhotoOldList();
-                    document.getElementById("li_" + _currentCountry).classList.add("selected");
+                    var clickedCountry = this.getAttribute("data-currency");
+                    if (clickedCountry !== _currentCountry) {
+                        document.getElementById("li_" + _currentCountry).classList.remove("selected");
+                        _currentCountry = clickedCountry;
+
+                        //Sauvegarde des préférences
+                        dataHelper.savePreferences(_referenceCurrency, _referenceFileName, _currentCountry,
+                            function () {
+                                refreshPhotoOldList();
+                                document.getElementById("li_" + _currentCountry).classList.add("selected");
+                            },
+                            function (error) {
+                                kernel.manageException(error);
+                            }
+                        );
+                    }
                 }, false);
             }
         }
@@ -84,9 +99,17 @@ var taux = (function () {
                             _currentCountry = index;
                             break;
                         }
-                        refresh();
-
-                        initializeNavigation();
+                        //Sauvegarde des préférences
+                        dataHelper.savePreferences(_referenceCurrency, _referenceFileName, _currentCountry,
+                            function () {
+                                refresh();
+                                //Sauvegarde des préférences
+                                initializeNavigation();
+                            },
+                            function (error) {
+                                kernel.manageException(error);
+                            });
+                        
                     }
                 });
         }
@@ -121,27 +144,27 @@ var taux = (function () {
         //Calculs des autres taux 
         var devises = Taux.devises;
         //Pour chacune des devises excepté la première que nous avons déjà calculé
-
+        var refCur = _referenceCurrency;
         for (var index in devises) {
             if (index !== "EUR" && listeEUR[index]) {
-                _referenceCurrency = index;
+                refCur = index;
                 //On parcours la liste des devises et on saute la courante
                 var listeTaux = {};
                 var convertionRate = 1 / listeEUR[index].rate;
                 var first = true;
                 for (var rate in listeEUR) {
-                    if (_referenceCurrency !== "EUR" && first) {
+                    if (refCur !== "EUR" && first) {
                         listeTaux["EUR"] = {
                             "flag": Taux.devises["EUR"].flag,
                             "currency": "EUR",
                             "filename": Taux.devises["EUR"].fileName,
                             "rate": convertionRate,
-                            "old": getOldData(_referenceCurrency, datesAnciensTaux, convertionRate, true)
+                            "old": getOldData(refCur, datesAnciensTaux, convertionRate, true)
                         };
                         first = false;
                     }
-                    if (_referenceCurrency === "EUR" && rate !== "EUR" && index !== rate
-                        || _referenceCurrency !== "EUR" && rate !== "EUR" && index !== rate ) {
+                    if (refCur === "EUR" && rate !== "EUR" && index !== rate
+                        || refCur !== "EUR" && rate !== "EUR" && index !== rate) {
 
                         listeTaux[listeEUR[rate].currency] = {
                             "flag": Taux.devises[listeEUR[rate].currency].flag,
@@ -156,8 +179,19 @@ var taux = (function () {
                 _nouveauxTaux[index] = listeTaux;
             }
         }
-        _referenceCurrency = "EUR";
+        //_referenceCurrency = "EUR";
 
+    }
+
+    function getPreferences(preferences) {
+        //Lecture des preferences
+        var parser = new DOMParser();
+        var xmldom = parser.parseFromString(preferences, "text/xml");
+        var obj = formatHelper.XML2jsobj(xmldom.documentElement);
+        var preference = obj.preference;
+        _referenceCurrency = preference.currency;
+        _referenceFileName = preference.name;
+        _currentCountry = preference.country;
     }
 
     function setReferenceCurrencyData() {
@@ -203,8 +237,6 @@ var taux = (function () {
                             "rate": rate
                         }
                     );
-                    
-
                     break;
                 }
             }
@@ -221,7 +253,6 @@ var taux = (function () {
                 return _nouveauxTaux[index].old;
         }
     }
-
 
     /*
     * listePhotosURL : fileContent
@@ -257,9 +288,25 @@ var taux = (function () {
                                                 function (filePath) {
                                                     apiHelper.readTextFile(filePath.path,
                                                         function (listePhotosURL) {
-                                                            initializeData(listeNouveauxTaux, listeAnciensTaux, listePhotosURL);
-                                                            initializeNavigation();
-                                                            
+                                                            apiHelper.getAppFileByName("pref",
+                                                                function (filePath) {
+                                                                    apiHelper.readTextFile(filePath.path,
+                                                                        function (preferences) {
+                                                                            //Récupération des préférences si des préférences existent
+                                                                            initializeData(listeNouveauxTaux, listeAnciensTaux, listePhotosURL, preferences);
+                                                                            initializeNavigation();  
+                                                                        },
+                                                                        function (error) {
+                                                                            kernel.manageException(error);
+                                                                        }
+                                                                    );
+                                                                },
+                                                                function () {
+                                                                    //Récupération des préférences si des préférences existent
+                                                                    initializeData(listeNouveauxTaux, listeAnciensTaux, listePhotosURL);
+                                                                    initializeNavigation();
+                                                                }
+                                                            );
                                                         },
                                                         function (error) {
                                                             kernel.manageException(error);
@@ -292,6 +339,7 @@ var taux = (function () {
             );
         }
     };
+    
 })();
 
 /* <licenses>
@@ -305,3 +353,9 @@ var taux = (function () {
     <license id="7" name="No known copyright restrictions" url="http://flickr.com/commons/usage/" />
     <license id="8" name="United States Government Work" url="http://www.usa.gov/copyright.shtml" />
   </licenses> */
+//Affichage de la photo
+function imgLoaded(img) {
+    var imgWrapper = img.parentNode;
+
+    imgWrapper.className += imgWrapper.className ? ' loaded' : 'loaded';
+};

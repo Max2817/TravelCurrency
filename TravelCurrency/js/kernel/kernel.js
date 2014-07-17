@@ -2,14 +2,6 @@
 
 // Structure contenant les informations de la session utilisateur
 var session;
-var logLevels = { DEBUG: 0, INFO: 1, WARN: 2, ERROR: 3 };
-var logLevel = logLevels.INFO;
-
-// Appel de l'initialisation spécifique de chaque page
-/*document.addEventListener("DOMContentLoaded", function () {
-    //        document.removeEventListener("DOMContentLoaded", arguments.callee, false);
-    kernel.initialize();
-}, false);*/
 
 // Gestion des erreurs non interceptées
 window.onerror = function (msg, url, num) {
@@ -190,27 +182,6 @@ var kernel = (function () {
                 }
             }
 
-            // TOTO Isoler le spécifique Elispo dans un appHelper.preinitialise() et appHelper.postinitialise()
-
-            // On prépare l'affichage snapped de manière global
-            var snappedDiv = document.createElement("div");
-            snappedDiv.id = "snappedDiv";
-            document.body.appendChild(snappedDiv);
-
-            // On gère automatiquement le bouton back
-            if (document.getElementById("precedent")) {
-                document.getElementById("precedent").addEventListener("click", function () {
-                    try {
-                        // Si une action spécifique a été définie sur la page alors on l'appelle avant de naviguer
-                        beforeNavigate(goBackURL);
-                    }
-                    catch (e) {
-                        // On navigue directement car la fonction beforeNavigate n'a pas été définie sur la page
-                        goBackURL();
-                    }
-                });
-            }
-
             // On appelle l'initialisation spécifique de la page
             try {
                 initialize(session.urlParams, function () {
@@ -226,9 +197,6 @@ var kernel = (function () {
                             window.localStorage.setItem("session", JSON.stringify(session));
                         }
                     }
-                    // Si l'EDL est cloturé ou annulé alors on adapte les champs de saisie et les boutons de manière générale
-                    if (elipsoHelper)
-                        elipsoHelper.desactiveEDLClotured();
                 });
             } catch (exception) {
                 kernel.manageException(exception);
