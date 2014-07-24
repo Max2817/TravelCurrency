@@ -2,14 +2,8 @@
 /// <reference path="../../kernel/kernel.js" />
 /// <reference path="../../helpers/dataHelper.js" />
 /// <reference path="listeTauxTemplates.js" />
-
-var dataTest = /* AAPL historical OHLC data from the Google Finance API */
-/* AAPL historical OHLC data from the Google Finance API */
-[
-[1406066400000, 67.79],
-[1405980000000, 64.98],
-[1405893600000, 65.26],
-];
+/// <reference path="../../helpers/highcharts.js" />
+/// <reference path="../../helpers/highstock.js" />
 
 var taux = (function () {
     var _referenceCurrency = "EUR";
@@ -18,6 +12,7 @@ var taux = (function () {
     var _nouveauxTaux = {};
     var _referenceCurrencyData, _currencyList = {};
     var _photoURL, _listePhotosURL = null;
+    var _chart = null;
 
     function initializeData(listeNouveauxTaux, listeAnciensTaux, listePhotosURL, preferences) {
         if (preferences) {
@@ -47,7 +42,7 @@ var taux = (function () {
         uiHelper.pushContent("photo", listeTauxTemplates.getPhotoTemplate(_photoURL, _currentCountry));
         var anciensTaux = _nouveauxTaux[_referenceCurrency][_currentCountry].old;
         //uiHelper.pushContent("navcontainer", listeTauxTemplates.getListeAnciensTauxTemplate(anciensTaux));
-        VanillaRunOnDomReady(anciensTaux.values);
+        setChart(anciensTaux.values);
         setTimeout(function () {
             for (var i = 0; i < anciensTaux.values.length; i++) {
                 var gap = anciensTaux.max - anciensTaux.min;
@@ -285,33 +280,42 @@ var taux = (function () {
         }
     }
 
-    var VanillaRunOnDomReady = function (listeOldTaux) {
-        var widthContainer = document.getElementById("container").offsetWidth;
-        var nouvTab = [];
-        for( var i=0; i<3; i++){
-            nouvTab.push(listeOldTaux[i]);
+    var setChart = function (listeOldTaux) {
+        var taux = JSON.parse(JSON.stringify(listeOldTaux)).reverse();
+        //update the chart if exists
+        if (_chart) {
+            //_chart.series.setData(taux, true);
+            _chart.series[0].setData(taux, true);
+            _chart.setTitle({ text: _currentCountry });
+        }//else create it
+        else {
+            var widthContainer = document.getElementById("container").offsetWidth;
+            var nouvTab = [];
+            for (var i = 0; i < 3; i++) {
+                nouvTab.push(listeOldTaux[i]);
+            }
+            _chart = new Highcharts.StockChart({
+
+                chart: {
+                    renderTo: 'container'
+                },
+                rangeSelector: {
+                    inputEnabled: widthContainer > 480,
+                    selected: 0
+                },
+                title: {
+                    text: _currentCountry
+                },
+                series: [{
+                    data: taux,
+                    shadow: true,
+                    tooltip: {
+                        valueDecimals: 5
+                    }
+                }]
+
+            });
         }
-        var chart = new Highcharts.StockChart({
-
-            chart: {
-                renderTo: 'container'
-            },
-            rangeSelector: {
-                inputEnabled: widthContainer > 480,
-                selected: 0
-            },
-            title: {
-                text: 'AAPL Stock Price'
-            },
-            series: [{
-                data: listeOldTaux.reverse(),
-                shadow: true,
-                tooltip: {
-                    valueDecimals: 5
-                }
-            }]
-
-        });
     }
 
     /*var alreadyrunflag = 0;
