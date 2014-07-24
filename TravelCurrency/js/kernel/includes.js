@@ -38,6 +38,8 @@ MSApp.execUnsafeLocalFunction(function () {
 
             + '<!-- helpers -->\n'
             + '<script type="text/javascript" src="/js/helpers/q.js"></script>\n'
+            + '<script type="text/javascript" src="/js/helpers/highcharts.js"></script>\n'
+            + '<script type="text/javascript" src="/js/helpers/highstock.js"></script>\n'
             + '<script type="text/javascript" src="/js/helpers/syncAPIHelper.js"></script>\n'
             + '<script type="text/javascript" src="/js/helpers/apiHelper.js"></script>\n'
             + '<script type="text/javascript" src="/js/helpers/uiHelper.js"></script>\n'

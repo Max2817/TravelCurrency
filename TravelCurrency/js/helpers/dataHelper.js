@@ -195,7 +195,7 @@ var dataHelper = (function () {
                 "text": keywords,
                 "license": "1,2,3,4,5,6,7",
                 //"accuracy": "16",
-                //"safe_search": "3",
+                "safe_search": "3",
                 "content_type": "1",
                 "media": "photos",
                 //"geo_context": "2",

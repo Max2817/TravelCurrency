@@ -299,6 +299,8 @@
     <Content Include="js\helpers\dataHelper.js" />
     <Content Include="js\helpers\flickrHelper.js" />
     <Content Include="js\helpers\formatHelper.js" />
+    <Content Include="js\helpers\highcharts.js" />
+    <Content Include="js\helpers\highstock.js" />
     <Content Include="js\helpers\q.js" />
     <Content Include="js\helpers\apiHelper.js" />
     <Content Include="js\helpers\syncAPIHelper.js" />

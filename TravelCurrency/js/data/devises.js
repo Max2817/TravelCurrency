@@ -6,12 +6,12 @@
             "EUR": {
                 fileName: "Euro",
                 flag: "eu.png",
-                keywords: "European mountain"
+                keywords: "Paris, Eiffel tower, landscape"
             },
             "USD": {
                 fileName: "US dollar",
                 flag: "us.png",
-                keywords: "New York City Wallstreet"
+                keywords: "USA, New York, New York City, building"
             },
             "JPY": {
                 fileName: "Japanese yen",
