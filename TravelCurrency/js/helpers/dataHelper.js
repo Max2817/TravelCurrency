@@ -195,11 +195,7 @@ var dataHelper = (function () {
                 "text": keywords,
                 "license": "1,2,3,4,5,6,7",
                 //"accuracy": "16",
-<<<<<<< HEAD
                 "safe_search": "3",
-=======
-                //"safe_search": "3",
->>>>>>> f17466562e2785c386bf539b1ba8cb8af4279316
                 "content_type": "1",
                 "media": "photos",
                 //"geo_context": "2",
@@ -275,31 +271,9 @@ var dataHelper = (function () {
                 }
             );
         },
-<<<<<<< HEAD
         savePreferences: function (referenceCurrency, referenceFileName, currentCountry, currentFileName, successResponse, errorResponse) {
             var content = '<preferences>\n'
             + '<preference currency="' + referenceCurrency + '" name="' + referenceFileName + '" country="' + currentCountry + '" currentCurrencyName="' + currentFileName + '" />\n'
-=======
-        savePreferences: function (referenceCurrency, referenceFileName, currentCountry, successResponse, errorResponse) {
-            var content = '<preferences>\n'
-            + '<preference currency="' + referenceCurrency + '" name="' + referenceFileName + '" country="' + currentCountry + '" />\n'
-            + '</preferences>';
-            var fileName = 'pref';
-            apiHelper.saveFile(
-                fileName,
-                content,
-                function () {
-                    successResponse();
-                },
-                function () {
-                    errorResponse();
-                }
-            );
-        },
-        readPreferences: function (successResponse, errorResponse) {
-            var content = '<preferences>\n'
-            + '<preference currency="' + referenceCurrency + '" name="' + referenceFileName + '" country="' + currentCountry + '" />\n'
->>>>>>> f17466562e2785c386bf539b1ba8cb8af4279316
             + '</preferences>';
             var fileName = 'pref';
             apiHelper.saveFile(
