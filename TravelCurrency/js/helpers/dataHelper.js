@@ -271,25 +271,9 @@ var dataHelper = (function () {
                 }
             );
         },
-        savePreferences: function (referenceCurrency, referenceFileName, currentCountry, successResponse, errorResponse) {
+        savePreferences: function (referenceCurrency, referenceFileName, currentCountry, currentFileName, successResponse, errorResponse) {
             var content = '<preferences>\n'
-            + '<preference currency="' + referenceCurrency + '" name="' + referenceFileName + '" country="' + currentCountry + '" />\n'
-            + '</preferences>';
-            var fileName = 'pref';
-            apiHelper.saveFile(
-                fileName,
-                content,
-                function () {
-                    successResponse();
-                },
-                function () {
-                    errorResponse();
-                }
-            );
-        },
-        readPreferences: function (successResponse, errorResponse) {
-            var content = '<preferences>\n'
-            + '<preference currency="' + referenceCurrency + '" name="' + referenceFileName + '" country="' + currentCountry + '" />\n'
+            + '<preference currency="' + referenceCurrency + '" name="' + referenceFileName + '" country="' + currentCountry + '" currentCurrencyName="' + currentFileName + '" />\n'
             + '</preferences>';
             var fileName = 'pref';
             apiHelper.saveFile(

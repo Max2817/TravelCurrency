@@ -20,7 +20,7 @@ var listeTauxTemplates = (function () {
             buildContent += '<ul id="nouveauxTaux">';
             for (var index in listNouveauxTaux) {
                 var nouveauTaux = listNouveauxTaux[index];
-                buildContent += '<a href="#" id="currency_' + nouveauTaux.currency + '" data-currency="' + nouveauTaux.currency + '" >';
+                buildContent += '<a href="#" id="currency_' + nouveauTaux.currency + '" data-currency="' + nouveauTaux.currency + '" data-currency-name="' + nouveauTaux.filename + '" >';
                 buildContent += '<li id="li_' + nouveauTaux.currency + '">';
                 buildContent += '<img src="../../../images/flags/64/' + nouveauTaux.flag + '" alt="' + nouveauTaux.currency + '" class="thumbnail"/>';
                 buildContent += '<div class="newTauxValue"><h2>' + nouveauTaux.filename + '</h2>';

@@ -9,6 +9,7 @@ var taux = (function () {
     var _referenceCurrency = "EUR";
     var _referenceFileName = "Euro";
     var _currentCountry = "USD";
+    var _currentFileName = "US Dollar";
     var _nouveauxTaux = {};
     var _referenceCurrencyData, _currencyList = {};
     var _photoURL, _listePhotosURL = null;
@@ -71,12 +72,14 @@ var taux = (function () {
                 document.getElementById("currency_" + listeTaux[index].currency).addEventListener("click",
                 function () {
                     var clickedCountry = this.getAttribute("data-currency");
+                    var clickedCurrencyName = this.getAttribute("data-currency-name");
                     if (clickedCountry !== _currentCountry) {
                         document.getElementById("li_" + _currentCountry).classList.remove("selected");
                         _currentCountry = clickedCountry;
+                        _currentFileName = clickedCurrencyName;
 
                         //Sauvegarde des préférences
-                        dataHelper.savePreferences(_referenceCurrency, _referenceFileName, _currentCountry,
+                        dataHelper.savePreferences(_referenceCurrency, _referenceFileName, _currentCountry, _currentFileName,
                             function () {
                                 refreshPhotoOldList();
                                 document.getElementById("li_" + _currentCountry).classList.add("selected");
@@ -103,10 +106,11 @@ var taux = (function () {
                         setReferenceCurrencyData();
                         for (var index in _nouveauxTaux[_referenceCurrency]) {
                             _currentCountry = index;
+                            _currentFileName = _nouveauxTaux[_referenceCurrency][index].filename;
                             break;
                         }
                         //Sauvegarde des préférences
-                        dataHelper.savePreferences(_referenceCurrency, _referenceFileName, _currentCountry,
+                        dataHelper.savePreferences(_referenceCurrency, _referenceFileName, _currentCountry, _currentFileName,
                             function () {
                                 refresh();
                                 //Sauvegarde des préférences
@@ -198,6 +202,7 @@ var taux = (function () {
         _referenceCurrency = preference.currency;
         _referenceFileName = preference.name;
         _currentCountry = preference.country;
+        _currentFileName = preference.currentCurrencyName;
     }
 
     function setReferenceCurrencyData() {
@@ -240,10 +245,6 @@ var taux = (function () {
                     var dateArray = currentDate.split("-");
                     var timestamp = new Date(parseInt(dateArray[0]), parseInt(dateArray[1])-1, parseInt(dateArray[2])).getTime();
                     values.push(
-                        /*{
-                            "currentDate": currentDate,
-                            "rate": rate
-                        }*/
                         [parseInt(timestamp), parseFloat(rate)]
                     );
                     break;
@@ -284,9 +285,8 @@ var taux = (function () {
         var taux = JSON.parse(JSON.stringify(listeOldTaux)).reverse();
         //update the chart if exists
         if (_chart) {
-            //_chart.series.setData(taux, true);
-            _chart.series[0].setData(taux, true);
-            _chart.setTitle({ text: _currentCountry });
+            _chart.series[0].setData(taux);
+            _chart.setTitle({ text: _currentFileName });
         }//else create it
         else {
             var widthContainer = document.getElementById("container").offsetWidth;
@@ -300,18 +300,19 @@ var taux = (function () {
                     renderTo: 'container'
                 },
                 rangeSelector: {
-                    inputEnabled: widthContainer > 480,
+                    inputEnabled: false,
                     selected: 0
                 },
                 title: {
-                    text: _currentCountry
+                    text: _currentFileName
                 },
                 series: [{
                     data: taux,
                     shadow: true,
                     tooltip: {
                         valueDecimals: 5
-                    }
+                    },
+                    name: _currentCountry
                 }]
 
             });
