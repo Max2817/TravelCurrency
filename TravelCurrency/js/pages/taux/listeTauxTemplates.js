@@ -24,8 +24,8 @@ var listeTauxTemplates = (function () {
                 buildContent += '<li id="li_' + nouveauTaux.currency + '">';
                 buildContent += '<img src="../../../images/flags/64/' + nouveauTaux.flag + '" alt="' + nouveauTaux.currency + '" class="thumbnail"/>';
                 buildContent += '<div class="newTauxValue"><h2>' + nouveauTaux.filename + '</h2>';
-                buildContent += '<p class="taux">Taux :  <span class="price">';
-                buildContent += formatHelper.formatFloat(nouveauTaux.rate) + '</span></p></div>';
+                buildContent += '<p class="taux">1 ' + referenceCurrency.currency + '<span class="price">';
+                buildContent += ' = '+ formatHelper.formatFloat(nouveauTaux.rate) + ' ' + nouveauTaux.currency + '</span></p></div>';
                 buildContent += '</li></a>';
             }
             buildContent += '</ul>';
@@ -107,7 +107,7 @@ var listeTauxTemplates = (function () {
             buildContent += '" onload="imgLoaded(this)" />';
             buildContent += '</div></div>';
             buildContent += '<div class="black">';
-            buildContent += '<p>' + currencyName + '</p>';
+            //buildContent += '<p>' + currencyName + '</p>';
             buildContent += '</div>';
             return buildContent;
         }

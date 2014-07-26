@@ -143,7 +143,7 @@ background-image:         linear-gradient(top, #ffffff, #efefef);
     height:100%; 
 }
 #photo {
-    height : 30%;
+    height : 40%;
     position: relative;
     /*position: relative; width: 200px; height: 150px; border: 1px solid black;*/
 }
@@ -334,7 +334,7 @@ background-image:         linear-gradient(top, #ffffff, #efefef);
 #container {
     display: inline-block;
     width: 100%;
-    height:70%;
+    height:60%;
 }
 
 #scale {

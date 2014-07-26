@@ -104,10 +104,12 @@ var taux = (function () {
                         _referenceCurrency = currency;
                         _referenceFileName = filename;
                         setReferenceCurrencyData();
-                        for (var index in _nouveauxTaux[_referenceCurrency]) {
-                            _currentCountry = index;
-                            _currentFileName = _nouveauxTaux[_referenceCurrency][index].filename;
-                            break;
+                        if (_referenceCurrency == _currentCountry) {
+                            for (var index in _nouveauxTaux[_referenceCurrency]) {
+                                _currentCountry = index;
+                                _currentFileName = _nouveauxTaux[_referenceCurrency][index].filename;
+                                break;
+                            }
                         }
                         //Sauvegarde des préférences
                         dataHelper.savePreferences(_referenceCurrency, _referenceFileName, _currentCountry, _currentFileName,
