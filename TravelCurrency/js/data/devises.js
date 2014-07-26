@@ -6,12 +6,20 @@
             "EUR": {
                 fileName: "Euro",
                 flag: "eu.png",
+<<<<<<< HEAD
                 keywords: "Paris, Eiffel tower, landscape"
+=======
+                keywords: "European mountain"
+>>>>>>> f17466562e2785c386bf539b1ba8cb8af4279316
             },
             "USD": {
                 fileName: "US dollar",
                 flag: "us.png",
+<<<<<<< HEAD
                 keywords: "USA, New York, New York City, building"
+=======
+                keywords: "New York City Wallstreet"
+>>>>>>> f17466562e2785c386bf539b1ba8cb8af4279316
             },
             "JPY": {
                 fileName: "Japanese yen",

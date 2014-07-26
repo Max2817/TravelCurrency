@@ -143,7 +143,11 @@ background-image:         linear-gradient(top, #ffffff, #efefef);
     height:100%; 
 }
 #photo {
+<<<<<<< HEAD
     height : 40%;
+=======
+    height : 50%;
+>>>>>>> f17466562e2785c386bf539b1ba8cb8af4279316
     position: relative;
     /*position: relative; width: 200px; height: 150px; border: 1px solid black;*/
 }
@@ -327,6 +331,7 @@ background-image:         linear-gradient(top, #ffffff, #efefef);
     position: relative;
     display: inline-block;
     width: 100%;
+<<<<<<< HEAD
     height:70%;
     background-color:#ffffff;
 }
@@ -337,6 +342,11 @@ background-image:         linear-gradient(top, #ffffff, #efefef);
     height:60%;
 }
 
+=======
+    height:50%;
+    background-color:#ffffff;
+}
+>>>>>>> f17466562e2785c386bf539b1ba8cb8af4279316
 #scale {
     width:10%;
     background-color:#F0F0F0;

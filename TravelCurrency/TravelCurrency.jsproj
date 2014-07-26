@@ -299,8 +299,11 @@
     <Content Include="js\helpers\dataHelper.js" />
     <Content Include="js\helpers\flickrHelper.js" />
     <Content Include="js\helpers\formatHelper.js" />
+<<<<<<< HEAD
     <Content Include="js\helpers\highcharts.js" />
     <Content Include="js\helpers\highstock.js" />
+=======
+>>>>>>> f17466562e2785c386bf539b1ba8cb8af4279316
     <Content Include="js\helpers\q.js" />
     <Content Include="js\helpers\apiHelper.js" />
     <Content Include="js\helpers\syncAPIHelper.js" />

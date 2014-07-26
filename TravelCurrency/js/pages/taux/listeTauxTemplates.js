@@ -20,12 +20,21 @@ var listeTauxTemplates = (function () {
             buildContent += '<ul id="nouveauxTaux">';
             for (var index in listNouveauxTaux) {
                 var nouveauTaux = listNouveauxTaux[index];
+<<<<<<< HEAD
                 buildContent += '<a href="#" id="currency_' + nouveauTaux.currency + '" data-currency="' + nouveauTaux.currency + '" data-currency-name="' + nouveauTaux.filename + '" >';
                 buildContent += '<li id="li_' + nouveauTaux.currency + '">';
                 buildContent += '<img src="../../../images/flags/64/' + nouveauTaux.flag + '" alt="' + nouveauTaux.currency + '" class="thumbnail"/>';
                 buildContent += '<div class="newTauxValue"><h2>' + nouveauTaux.filename + '</h2>';
                 buildContent += '<p class="taux">1 ' + referenceCurrency.currency + '<span class="price">';
                 buildContent += ' = '+ formatHelper.formatFloat(nouveauTaux.rate) + ' ' + nouveauTaux.currency + '</span></p></div>';
+=======
+                buildContent += '<a href="#" id="currency_' + nouveauTaux.currency + '" data-currency="' + nouveauTaux.currency + '" >';
+                buildContent += '<li id="li_' + nouveauTaux.currency + '">';
+                buildContent += '<img src="../../../images/flags/64/' + nouveauTaux.flag + '" alt="' + nouveauTaux.currency + '" class="thumbnail"/>';
+                buildContent += '<div class="newTauxValue"><h2>' + nouveauTaux.filename + '</h2>';
+                buildContent += '<p class="taux">Taux :  <span class="price">';
+                buildContent += formatHelper.formatFloat(nouveauTaux.rate) + '</span></p></div>';
+>>>>>>> f17466562e2785c386bf539b1ba8cb8af4279316
                 buildContent += '</li></a>';
             }
             buildContent += '</ul>';
@@ -107,7 +116,11 @@ var listeTauxTemplates = (function () {
             buildContent += '" onload="imgLoaded(this)" />';
             buildContent += '</div></div>';
             buildContent += '<div class="black">';
+<<<<<<< HEAD
             //buildContent += '<p>' + currencyName + '</p>';
+=======
+            buildContent += '<p>' + currencyName + '</p>';
+>>>>>>> f17466562e2785c386bf539b1ba8cb8af4279316
             buildContent += '</div>';
             return buildContent;
         }
