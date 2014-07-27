@@ -2,27 +2,17 @@
 /// <reference path="../../kernel/kernel.js" />
 /// <reference path="../../helpers/dataHelper.js" />
 /// <reference path="listeTauxTemplates.js" />
-<<<<<<< HEAD
 /// <reference path="../../helpers/highcharts.js" />
 /// <reference path="../../helpers/highstock.js" />
-
-=======
->>>>>>> f17466562e2785c386bf539b1ba8cb8af4279316
 var taux = (function () {
     var _referenceCurrency = "EUR";
     var _referenceFileName = "Euro";
     var _currentCountry = "USD";
-<<<<<<< HEAD
     var _currentFileName = "US Dollar";
     var _nouveauxTaux = {};
     var _referenceCurrencyData, _currencyList = {};
     var _photoURL, _listePhotosURL = null;
     var _chart = null;
-=======
-    var _nouveauxTaux = {};
-    var _referenceCurrencyData, _currencyList = {};
-    var _photoURL, _listePhotosURL = null;
->>>>>>> f17466562e2785c386bf539b1ba8cb8af4279316
 
     function initializeData(listeNouveauxTaux, listeAnciensTaux, listePhotosURL, preferences) {
         if (preferences) {
@@ -34,10 +24,6 @@ var taux = (function () {
         //on enlève la wheel et on met le contenu
         if (document.getElementById("content"))
             document.getElementById("content").style.visibility = 'visible';
-<<<<<<< HEAD
-        
-=======
->>>>>>> f17466562e2785c386bf539b1ba8cb8af4279316
     }
     
     function refresh() {
@@ -54,12 +40,7 @@ var taux = (function () {
         getPhotoURLFromListe();
         uiHelper.pushContent("photo", listeTauxTemplates.getPhotoTemplate(_photoURL, _currentCountry));
         var anciensTaux = _nouveauxTaux[_referenceCurrency][_currentCountry].old;
-<<<<<<< HEAD
-        //uiHelper.pushContent("navcontainer", listeTauxTemplates.getListeAnciensTauxTemplate(anciensTaux));
         setChart(anciensTaux.values);
-=======
-        uiHelper.pushContent("navcontainer", listeTauxTemplates.getListeAnciensTauxTemplate(anciensTaux));
->>>>>>> f17466562e2785c386bf539b1ba8cb8af4279316
         setTimeout(function () {
             for (var i = 0; i < anciensTaux.values.length; i++) {
                 var gap = anciensTaux.max - anciensTaux.min;
@@ -88,7 +69,6 @@ var taux = (function () {
                 document.getElementById("currency_" + listeTaux[index].currency).addEventListener("click",
                 function () {
                     var clickedCountry = this.getAttribute("data-currency");
-<<<<<<< HEAD
                     var clickedCurrencyName = this.getAttribute("data-currency-name");
                     if (clickedCountry !== _currentCountry) {
                         document.getElementById("li_" + _currentCountry).classList.remove("selected");
@@ -97,14 +77,6 @@ var taux = (function () {
 
                         //Sauvegarde des préférences
                         dataHelper.savePreferences(_referenceCurrency, _referenceFileName, _currentCountry, _currentFileName,
-=======
-                    if (clickedCountry !== _currentCountry) {
-                        document.getElementById("li_" + _currentCountry).classList.remove("selected");
-                        _currentCountry = clickedCountry;
-
-                        //Sauvegarde des préférences
-                        dataHelper.savePreferences(_referenceCurrency, _referenceFileName, _currentCountry,
->>>>>>> f17466562e2785c386bf539b1ba8cb8af4279316
                             function () {
                                 refreshPhotoOldList();
                                 document.getElementById("li_" + _currentCountry).classList.add("selected");
@@ -129,7 +101,6 @@ var taux = (function () {
                         _referenceCurrency = currency;
                         _referenceFileName = filename;
                         setReferenceCurrencyData();
-<<<<<<< HEAD
                         if (_referenceCurrency == _currentCountry) {
                             for (var index in _nouveauxTaux[_referenceCurrency]) {
                                 _currentCountry = index;
@@ -139,14 +110,6 @@ var taux = (function () {
                         }
                         //Sauvegarde des préférences
                         dataHelper.savePreferences(_referenceCurrency, _referenceFileName, _currentCountry, _currentFileName,
-=======
-                        for (var index in _nouveauxTaux[_referenceCurrency]) {
-                            _currentCountry = index;
-                            break;
-                        }
-                        //Sauvegarde des préférences
-                        dataHelper.savePreferences(_referenceCurrency, _referenceFileName, _currentCountry,
->>>>>>> f17466562e2785c386bf539b1ba8cb8af4279316
                             function () {
                                 refresh();
                                 //Sauvegarde des préférences
@@ -238,10 +201,7 @@ var taux = (function () {
         _referenceCurrency = preference.currency;
         _referenceFileName = preference.name;
         _currentCountry = preference.country;
-<<<<<<< HEAD
         _currentFileName = preference.currentCurrencyName;
-=======
->>>>>>> f17466562e2785c386bf539b1ba8cb8af4279316
     }
 
     function setReferenceCurrencyData() {
@@ -281,18 +241,10 @@ var taux = (function () {
                         if (rate > max)
                             max = rate;
                     }
-<<<<<<< HEAD
                     var dateArray = currentDate.split("-");
                     var timestamp = new Date(parseInt(dateArray[0]), parseInt(dateArray[1])-1, parseInt(dateArray[2])).getTime();
                     values.push(
                         [parseInt(timestamp), parseFloat(rate)]
-=======
-                    values.push(
-                        {
-                            "currentDate": currentDate,
-                            "rate": rate
-                        }
->>>>>>> f17466562e2785c386bf539b1ba8cb8af4279316
                     );
                     break;
                 }
@@ -327,7 +279,6 @@ var taux = (function () {
             }
         }
     }
-<<<<<<< HEAD
 
     var setChart = function (listeOldTaux) {
         var taux = JSON.parse(JSON.stringify(listeOldTaux)).reverse();
@@ -342,8 +293,16 @@ var taux = (function () {
             for (var i = 0; i < 3; i++) {
                 nouvTab.push(listeOldTaux[i]);
             }
+            Highcharts.setOptions(
+                {
+                    lang: {
+                        months: [_i18n.lblJanuary, _i18n.lblFebruary, _i18n.lblMarch, _i18n.lblApril, _i18n.lblMay, _i18n.lblJune, _i18n.lblJuly, _i18n.lblAugust, _i18n.lblSeptember, _i18n.lblOctober, _i18n.lblNovember, _i18n.lblDecember],
+                        shortMonths: [_i18n.lblJan, _i18n.lblFeb, _i18n.lblMar, _i18n.lblApr, _i18n.lblMay, _i18n.lblJun, _i18n.lblJul, _i18n.lblAug, _i18n.lblSep, _i18n.lblOct, _i18n.lblNov, _i18n.lblDec],
+                        weekdays: [_i18n.lblSunday, _i18n.lblMonday, _i18n.lblTuesday, _i18n.lblWednesday, _i18n.lblThursday, _i18n.lblFriday, _i18n.lblSaturday]
+                    }
+                }
+            );
             _chart = new Highcharts.StockChart({
-
                 chart: {
                     renderTo: 'container'
                 },
@@ -385,8 +344,6 @@ var taux = (function () {
         }
     }*/
 
-=======
->>>>>>> f17466562e2785c386bf539b1ba8cb8af4279316
     "use strict";
     return {
         initialize: function (params, endInitializeCallBack) {
