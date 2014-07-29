@@ -15,6 +15,10 @@ Features
 >> DETAILS
 ------------
 
+Windows Store download link
+-----------------------------
+http://apps.microsoft.com/windows/app/travel-currency/78fc5a72-2b6d-4f30-9f83-9d305df34656
+
 Notes
 -----
 **3rd version**
