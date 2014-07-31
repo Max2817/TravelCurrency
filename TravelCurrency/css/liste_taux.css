@@ -15,6 +15,7 @@
 	user-select: none;
     
 }
+
 #content {
     width:100%;
     height:100%;
@@ -32,19 +33,12 @@ body{
 }
 
 
-
-
-#listeTaux {
+#header {
     width:100%;
-    height:100%;
-    float:left;
-}
-
-#listeTaux #entete {
-    position: relative;
     height:10%;
+    position: relative;
+    float:left;
     /*background-color: beige¨*/
-    width:100%;
     display: block;
     border-bottom: 1px solid #b9b9b9;
     border-top: 1px solid #f7f7f7;
@@ -56,30 +50,63 @@ body{
     background-image:         linear-gradient(top, #ffffff, #c8c8c8);
 }
 
+#currencies {
+    width:100%;
+    height:90%;
+    position: relative;
+    float:left; 
+    clear: left;
+}
+
+
 #choosenCurrency {
     width: 20%;
     height:100%;
     float:left;
 }
+
 #currencyList {
     width: 75%;
     height:100%;
     float:left;
 }
-#changeCurrency {
-    display:table-cell;
-    vertical-align:middle;
+
+#curName {
+    margin-top:1%;
+    height:49%;
+    position: relative;
+}
+#curName input {
+   margin-right:2%;
+}
+#curName h2 {
+   padding-top:3%; 
+}
+#fields {
     height:50%;
+}
+#convertedNumber {
+    float:left;
     font-size:100%;
+    height:80%;
+    width:30%;
+    margin-top:1%;
+}
+#changeCurrency {
+    font-size:100%;
+    margin:0;
+    height:80%;
+    
 }
 
 
-#listeTaux ul { 
+#currencies ul { 
     overflow-y:auto;
-    height:90%;
+    height:100%;
+    width:100%;
 }
    
-#listeTaux ul a li {
+#currencies ul a li {
     display: block;
     width: 100%;
     height: 12%;
@@ -94,7 +121,7 @@ body{
     color: #708090;
 }
 
-#listeTaux ul a li.selected {
+#currencies ul a li.selected {
     color: white;
     background: #444; 
     background: -webkit-linear-gradient( #555555, #090909); 
@@ -105,7 +132,7 @@ body{
     box-shadow: 1px 1px 10px black inset, 0 1px 0 rgba( 255, 255, 255, 0.4);
 }
 
-#listeTaux ul li img.thumbnail, #entete img.thumbnail {
+#currencies ul li img.thumbnail, #entete img.thumbnail {
   background: #ffffff00;
   display: inline-block;
   float: left;
@@ -120,8 +147,8 @@ body{
 
 /*#listeTaux ul a:hover li h2 { color: #7287b1; }
 #listeTaux ul a:hover li p.taux { color: #757575; }*/
-#listeTaux ul a li.selected h2 { color: white; }
-#listeTaux ul a li.selected p.taux { color: white; }
+#currencies ul a li.selected h2 { color: white; }
+#currencies ul a li.selected p.taux { color: white; }
 
 /*#listeTaux ul a:hover li {
 background: #efefef;
@@ -142,6 +169,7 @@ background-image:         linear-gradient(top, #ffffff, #efefef);
     width:70%;
     height:100%; 
 }
+
 #photo {
     height : 40%;
     position: relative;
@@ -178,35 +206,8 @@ background-image:         linear-gradient(top, #ffffff, #efefef);
   font-size: 12px;
   font-family:verdana;
 }
-/* Test Photo */
-.img_wrapper{
-    position: relative;
-    padding-top: 75%;
-    margin-bottom: 40px;
-    background: #fafafa;
-    overflow: hidden;
-}
 
-.img_wrapper img{
-    position: absolute;
-    width: 100%;
-    top: 0;
-    left: 0;
-    opacity: 0;
-  
-    -webkit-transition: opacity .5s;
-    -moz-transition: opacity .5s;
-    -ms-transition: opacity .5s;
-    transition: opacity .5s;
-}
 
-.img_wrapper.loaded img{
-    opacity: 1;
-}
-
-.img_wrapper.loaded .css_spinner{
-    display: none;
-}
 
 /*
 * CSS loading spinner styles for second example.
@@ -434,9 +435,9 @@ background-image:         linear-gradient(top, #ffffff, #efefef);
 and (min-device-width : 320px) 
 and (max-device-width : 480px) {
     /* Styles */
-    #listeTaux ul li h2 { font-size: 1.75em; }
+    #currencies ul li h2 { font-size: 1.75em; }
 
-    #listeTaux ul li img.thumbnail { margin-top: 2px; }
+    #currencies ul li img.thumbnail { margin-top: 2px; }
 }
 
 /* Smartphones (landscape) ----------- */

@@ -220,7 +220,7 @@ var dataHelper = (function () {
                                 result = obj.photos.photo;
                             }
                             //enregistrer la photo
-                            var photoUrl = "http://farm" + result.farm + ".staticflickr.com/" + result.server + "/" + result.id + "_" + result.secret + "_b.jpg";
+                            var photoUrl = "http://farm" + result.farm + ".staticflickr.com/" + result.server + "/" + result.id + "_" + result.secret + "_z.jpg";
                             response.resolve(photoUrl);
                             /*s	petit carré 75x75
                             q	large square 150x150

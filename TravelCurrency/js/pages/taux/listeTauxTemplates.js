@@ -1,14 +1,14 @@
 ﻿/// <reference path="../../helpers/formatHelper.js" />
 var listeTauxTemplates = (function () {
     return {
-
-        getListeNouveauxTauxTemplate: function (referenceCurrency, listNouveauxTaux) {
+        getBaseCurrencyHeader: function (referenceCurrency, listNouveauxTaux, multiplicator) {
             var buildContent = '<div id="entete">';
             buildContent += '<div id="choosenCurrency">';
             buildContent += '<img src="../../../images/flags/64/' + referenceCurrency.flag + '" alt="' + referenceCurrency.currency + '" class="thumbnail"/>';
             buildContent += '</div>';
             buildContent += '<div id="currencyList">';
-            buildContent += '<h2>' + referenceCurrency.filename + '</h2>';
+            buildContent += '<div id="curName"><input type="number" value="' + multiplicator + '" id="convertedNumber" maxlength="5" onKeyPress="return uiHelper.scanTouche(event);" onKeyUp="uiHelper.scanToucheSpe(event, taux.handleChange);" onChange="uiHelper.scanChamp(this)"></input><h2>' + referenceCurrency.filename + '</h2></div>';
+            buildContent += '<div id="fields">';
             buildContent += '<select id="changeCurrency">';
             buildContent += '<option value="">' + _i18n.lblChangeCurrency + '</option>';
             for (var taux in listNouveauxTaux) {
@@ -17,6 +17,12 @@ var listeTauxTemplates = (function () {
             buildContent += '</select>';
             buildContent += '</div>';
             buildContent += '</div>';
+            buildContent += '</div>';
+            return buildContent;
+        },
+
+        getListeNouveauxTauxTemplate: function (referenceCurrency, listNouveauxTaux, multiplicator) {
+            var buildContent = '';
             buildContent += '<ul id="nouveauxTaux">';
             for (var index in listNouveauxTaux) {
                 var nouveauTaux = listNouveauxTaux[index];
@@ -24,8 +30,9 @@ var listeTauxTemplates = (function () {
                 buildContent += '<li id="li_' + nouveauTaux.currency + '">';
                 buildContent += '<img src="../../../images/flags/64/' + nouveauTaux.flag + '" alt="' + nouveauTaux.currency + '" class="thumbnail"/>';
                 buildContent += '<div class="newTauxValue"><h2>' + nouveauTaux.filename + '</h2>';
-                buildContent += '<p class="taux">1 ' + referenceCurrency.currency + '<span class="price">';
-                buildContent += ' = '+ formatHelper.formatFloat(nouveauTaux.rate) + ' ' + nouveauTaux.currency + '</span></p></div>';
+                //buildContent += '<p class="taux">' + multiplicator + ' ' + referenceCurrency.currency + '<span class="price">';
+                buildContent += '<p class="taux"><span class="price">';
+                buildContent += ' = '+ formatHelper.formatFloat(nouveauTaux.rate*multiplicator) + ' ' + nouveauTaux.currency + '</span></p></div>';
                 buildContent += '</li></a>';
             }
             buildContent += '</ul>';
@@ -88,26 +95,18 @@ var listeTauxTemplates = (function () {
             buildContent += '</ul>';
             return buildContent;
         },
-        getPhotoTemplate: function (photoURL, currencyName) {
+        getPhotoTemplate: function (photoURL, currencyExtendedName) {
 
-            var buildContent = '<div class="focal-point down-5"><div class="img_wrapper">';
-            buildContent += '<div class="css_spinner">'
-            + '<div class="half left">'
-            + '<div class="band"></div>'
-		    + '</div>'
-		    + '<div class="half right">'
-			+ '<div class="band"></div>'
-		    + '</div>'
-            + '</div>';
+            var buildContent = '<div class="focal-point down-5"><div>';
             buildContent += '<img id="imgCountry" src="';
             if (kernel.is_cached(photoURL) || kernel.doesConnectionExists())
                 buildContent += photoURL;
             else
                 buildContent += '../../../images/default-image.png';
-            buildContent += '" onload="imgLoaded(this)" />';
+            buildContent += '" draggable="false" />';
             buildContent += '</div></div>';
             buildContent += '<div class="black">';
-            //buildContent += '<p>' + currencyName + '</p>';
+            buildContent += '<p>' + currencyExtendedName + '</p>';
             buildContent += '</div>';
             return buildContent;
         }

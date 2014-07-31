@@ -6,172 +6,177 @@
             "EUR": {
                 fileName: "Euro",
                 flag: "eu.png",
-                keywords: "Paris, Eiffel tower, landscape"
+                keywords: "France Paris monument",
+                symbol: "€"
             },
             "USD": {
                 fileName: "US dollar",
                 flag: "us.png",
-                keywords: "USA, New York, New York City, building"
+                keywords: "USA New York monument",
+                symbol: "$"
             },
             "JPY": {
                 fileName: "Japanese yen",
                 flag: "jp.png",
-                keywords: "Kyoto temple"
+                keywords: "Japan Tokyo monument",
+                symbol: "¥"
             },
             "BGN": {
                 fileName: "Bulgarian lev",
                 flag: "bg.png",
-                keywords: "Bulgarian mountain"
+                keywords: "Bulgaria Sofia monument",
+                symbol: "€"
             },
             "CZK": {
                 fileName: "Czech koruna",
                 flag: "cz.png",
-                keywords: "Czech"
+                keywords: "Czech Republic Prague monument",
+                symbol: "Kč"
             },
             "DKK": {
                 fileName: "Danish krone",
                 flag: "dk.png",
-                keywords: "Copenhague"
+                keywords: "Denmark Copenhaguen monument"
             },
             "GBP": {
                 fileName: "Pound sterling",
                 flag: "gb.png",
-                keywords: "Londres"
+                keywords: "United Kingdom London monument"
             },
             "HUF": {
                 fileName: "Hungarian forint",
                 flag: "hu.png",
-                keywords: "Budapest"
+                keywords: "Hungary Budapest monument"
             },
             "LTL": {
                 fileName: "Lithuanian litas",
                 flag: "lt.png",
-                keywords: "Vilnius"
+                keywords: "Lituania Vilnius monument"
             },
             "LVL": {
                 fileName: "Latvian lats",
                 flag: "lv.png",
-                keywords: "Riga"
+                keywords: "Latvia Riga monument"
             },
             "PLN": {
                 fileName: "Polish zloty",
                 flag: "pl.png",
-                keywords: "Varsovie"
+                keywords: "Poland Varsovia monument"
             },
             "RON": {
                 fileName: "New Romanian leu",
                 flag: "ro.png",
-                keywords: "Bucarest"
+                keywords: "Romania Bucharest monument"
             },
             "SEK": {
                 fileName: "Swedish krona",
                 flag: "se.png",
-                keywords: "Stockholm"
+                keywords: "Swedish Stockholm monument"
             },
             "CHF": {
                 fileName: "Swiss franc",
                 flag: "ch.png",
-                keywords: "Berne"
+                keywords: "Swiss Berne monument"
             },
             "NOK": {
                 fileName: "Norwegian krone",
                 flag: "no.png",
-                keywords: "Oslo"
+                keywords: "Norway Oslo monument"
             },
             "HRK": {
                 fileName: "Croatian kuna",
                 flag: "hr.png",
-                keywords: "Zagreb"
+                keywords: "Croatia Zagreb monument"
             },
             "RUB": {
                 fileName: "Russian rouble",
                 flag: "ru.png",
-                keywords: "Moscou"
+                keywords: "Russia Moscow monument"
             },
             "TRY": {
                 fileName: "Turkish lira",
                 flag: "tr.png",
-                keywords: "Ankara"
+                keywords: "Turkey Ankara monument"
             },
             "AUD": {
                 fileName: "Australian dollar",
                 flag: "au.png",
-                keywords: "Canberra"
+                keywords: "Australia Canberra monument"
             },
             "BRL": {
                 fileName: "Brasilian real",
                 flag: "br.png",
-                keywords: "Brasilia"
+                keywords: "Brazil Brasilia monument"
             },
             "CAD": {
                 fileName: "Canadian dollar",
                 flag: "ca.png",
-                keywords: "Ottawa"
+                keywords: "Canada Ottawa monument"
             },
             "CNY": {
                 fileName: "Chinese yuan renminbi",
                 flag: "cn.png",
-                keywords: "Pékin"
+                keywords: "China Beijing monument"
             },
             "HKD": {
                 fileName: "Hong Kong dollar",
                 flag: "hk.png",
-                keywords: "Hong Kong"
+                keywords: "Hong Kong monument"
             },
             "IDR": {
                 fileName: "Indonesian rupiah",
                 flag: "id.png",
-                keywords: "Jakarta"
+                keywords: "Indonesia Jakarta monument"
             },
             "ILS": {
                 fileName: "Israeli shekel",
                 flag: "il.png",
-                keywords: "Jérusalem"
+                keywords: "Israel Jerusalem monument"
             },
             "INR": {
                 fileName: "Indian rupee",
                 flag: "in.png",
-                keywords: "New Delhi"
+                keywords: "India New Delhi monument"
             },
             "KRW": {
                 fileName: "South Korean won",
                 flag: "kr.png",
-                keywords: "Séoul"
+                keywords: "South Korea Seoul monument"
             },
             "MXN": {
                 fileName: "Mexican peso",
                 flag: "mx.png",
-                keywords: "Mexico"
+                keywords: "Mexico Mexico city monument"
             },
             "MYR": {
                 fileName: "Malaysian ringgit",
                 flag: "my.png",
-                keywords: "Lumpur"
+                keywords: "Malaysia Lumpur monument"
             },
             "NZD": {
                 fileName: "New Zealand dollar",
                 flag: "nz.png",
-                keywords: "Wellington"
+                keywords: "New Zealand Wellington monument"
             },
             "PHP": {
                 fileName: "Philippine peso",
                 flag: "ph.png",
-                keywords: "Manille"
+                keywords: "Philippines Manila monument"
             },
             "SGD": {
                 fileName: "Singapore dollar",
                 flag: "sg.png",
-                keywords: "Singapour"
+                keywords: "Singapore monument"
             },
             "THB": {
                 fileName: "Thai baht",
                 flag: "th.png",
-                keywords: "Bangkok"
+                keywords: "Thailand Bangkok monument"
             },
             "ZAR": {
                 fileName: "South African rand",
                 flag: "za.png",
-                keywords: "Le cap"
+                keywords: "South Africa Pretoria monument"
             }
         }
     };
