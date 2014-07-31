@@ -34,5 +34,6 @@
     "lblWednesday": "Wednesday", 
     "lblThursday": "Thursday", 
     "lblFriday": "Friday", 
-    "lblSaturday": "Saturday"
+    "lblSaturday": "Saturday",
+    "lblBaseCurrency": "Base currency"
 }

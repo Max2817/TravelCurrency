@@ -25,6 +25,7 @@ MSApp.execUnsafeLocalFunction(function () {
         document.write(
             '<!-- CSS -->\n'
             + '<link href="/css/focal-point.css" rel="stylesheet" />\n'
+            + '<link href="/css/normalize.css" rel="stylesheet" />\n'
             + '<!-- Microsoft -->\n'
             + '<script type="text/javascript" src="//Microsoft.WinJS.1.0/js/base.js"></script>\n'
             + '<script type="text/javascript" src="//Microsoft.WinJS.1.0/js/ui.js"></script>\n'

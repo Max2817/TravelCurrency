@@ -4,15 +4,18 @@
 /// <reference path="listeTauxTemplates.js" />
 /// <reference path="../../helpers/highcharts.js" />
 /// <reference path="../../helpers/highstock.js" />
+
 var taux = (function () {
     var _referenceCurrency = "EUR";
     var _referenceFileName = "Euro";
     var _currentCountry = "USD";
     var _currentFileName = "US Dollar";
+    var _currentSymbol = "Kč";
     var _nouveauxTaux = {};
     var _referenceCurrencyData, _currencyList = {};
     var _photoURL, _listePhotosURL = null;
     var _chart = null;
+    var _multiplicator = 1;
 
     function initializeData(listeNouveauxTaux, listeAnciensTaux, listePhotosURL, preferences) {
         if (preferences) {
@@ -28,26 +31,24 @@ var taux = (function () {
     
     function refresh() {
         setCurrencyList();
-        uiHelper.pushContent("listeTaux", listeTauxTemplates.getListeNouveauxTauxTemplate(_referenceCurrencyData, _nouveauxTaux[_referenceCurrency]));
+        uiHelper.pushContent("header", listeTauxTemplates.getBaseCurrencyHeader(_referenceCurrencyData, _nouveauxTaux[_referenceCurrency], _multiplicator));
+        refreshListeTaux();
+        refreshPhotoOldList();
+    }
+
+    function refreshListeTaux() {
+        uiHelper.pushContent("currencies", listeTauxTemplates.getListeNouveauxTauxTemplate(_referenceCurrencyData, _nouveauxTaux[_referenceCurrency], _multiplicator));
         if (document.getElementById("li_" + _currentCountry)) {
             document.getElementById("li_" + _currentCountry).classList.add("selected");
             document.getElementById("li_" + _currentCountry).scrollIntoView();
         }
-        refreshPhotoOldList()
     }
 
     function refreshPhotoOldList() {
         getPhotoURLFromListe();
-        uiHelper.pushContent("photo", listeTauxTemplates.getPhotoTemplate(_photoURL, _currentCountry));
+        uiHelper.pushContent("photo", listeTauxTemplates.getPhotoTemplate(_photoURL, _currentFileName));
         var anciensTaux = _nouveauxTaux[_referenceCurrency][_currentCountry].old;
         setChart(anciensTaux.values);
-        setTimeout(function () {
-            for (var i = 0; i < anciensTaux.values.length; i++) {
-                var gap = anciensTaux.max - anciensTaux.min;
-                if (document.getElementById("old_" + i))
-                    document.getElementById("old_" + i).style.height = ((100 - Math.floor(((anciensTaux.values[i].rate - anciensTaux.min) * (80/gap))))-10) + "%";
-            }
-        }, 500);
     }
 
     function setCurrencyList() {
@@ -63,6 +64,11 @@ var taux = (function () {
     }
 
     function initializeNavigation() {
+        initializeCurrencyListNavigation();
+        initializeBaseCurrencyListNavigation(); 
+    }
+
+    function initializeCurrencyListNavigation() {
         var listeTaux = _nouveauxTaux[_referenceCurrency];
         for (var index in listeTaux) {
             if (document.getElementById("currency_" + listeTaux[index].currency)) {
@@ -89,40 +95,42 @@ var taux = (function () {
                 }, false);
             }
         }
+    }
+
+    function initializeBaseCurrencyListNavigation() {
         if (document.getElementById("changeCurrency")) {
             document.getElementById("changeCurrency").addEventListener("change",
-                function () {
-                    var el = document.getElementById("changeCurrency");
-                    var currency = el.options[el.selectedIndex].value;
-                    var filename = el.options[el.selectedIndex].text;
-                    var nouveauTaux = el.options[el.selectedIndex].getAttribute("data-convertion-rate");
-                    if (currency !== "") {
-                        //Remplacement des données de la lise
-                        _referenceCurrency = currency;
-                        _referenceFileName = filename;
-                        setReferenceCurrencyData();
-                        if (_referenceCurrency == _currentCountry) {
-                            for (var index in _nouveauxTaux[_referenceCurrency]) {
-                                _currentCountry = index;
-                                _currentFileName = _nouveauxTaux[_referenceCurrency][index].filename;
-                                break;
-                            }
+            function () {
+                var el = document.getElementById("changeCurrency");
+                var currency = el.options[el.selectedIndex].value;
+                var filename = el.options[el.selectedIndex].text;
+                var nouveauTaux = el.options[el.selectedIndex].getAttribute("data-convertion-rate");
+                if (currency !== "") {
+                    //Remplacement des données de la lise
+                    _referenceCurrency = currency;
+                    _referenceFileName = filename;
+                    setReferenceCurrencyData();
+                    if (_referenceCurrency == _currentCountry) {
+                        for (var index in _nouveauxTaux[_referenceCurrency]) {
+                            _currentCountry = index;
+                            _currentFileName = _nouveauxTaux[_referenceCurrency][index].filename;
+                            break;
                         }
-                        //Sauvegarde des préférences
-                        dataHelper.savePreferences(_referenceCurrency, _referenceFileName, _currentCountry, _currentFileName,
-                            function () {
-                                refresh();
-                                //Sauvegarde des préférences
-                                initializeNavigation();
-                            },
-                            function (error) {
-                                kernel.manageException(error);
-                            });
-                        
                     }
-                });
+                    //Sauvegarde des préférences
+                    dataHelper.savePreferences(_referenceCurrency, _referenceFileName, _currentCountry, _currentFileName,
+                        function () {
+                            refresh();
+                            //Sauvegarde des préférences
+                            initializeNavigation();
+                        },
+                        function (error) {
+                            kernel.manageException(error);
+                        });
+
+                }
+            });
         }
-        
     }
 
     function getNewData(listeNouveauxTaux, listeAnciensTaux) {
@@ -145,6 +153,7 @@ var taux = (function () {
                 "currency": nouveauxTaux[rate].currency,
                 "filename": Taux.devises[nouveauxTaux[rate].currency].fileName,
                 "rate": nouveauxTaux[rate].rate,
+                "symbol": Taux.devises[nouveauxTaux[rate].currency].symbol,
                 "old": getOldData(nouveauxTaux[rate].currency, datesAnciensTaux)
             };
         }
@@ -168,6 +177,7 @@ var taux = (function () {
                             "currency": "EUR",
                             "filename": Taux.devises["EUR"].fileName,
                             "rate": convertionRate,
+                            "symbol": Taux.devises["EUR"].symbol,
                             "old": getOldData(refCur, datesAnciensTaux, convertionRate, true)
                         };
                         first = false;
@@ -180,6 +190,7 @@ var taux = (function () {
                             "currency": listeEUR[rate].currency,
                             "filename": Taux.devises[listeEUR[rate].currency].fileName,
                             "rate": listeEUR[rate].rate * convertionRate,
+                            "symbol": Taux.devises[listeEUR[rate].currency].symbol,
                             "old": getOldData(listeEUR[rate].currency, datesAnciensTaux, convertionRate)
                         };
                     }
@@ -198,10 +209,12 @@ var taux = (function () {
         var xmldom = parser.parseFromString(preferences, "text/xml");
         var obj = formatHelper.XML2jsobj(xmldom.documentElement);
         var preference = obj.preference;
-        _referenceCurrency = preference.currency;
-        _referenceFileName = preference.name;
-        _currentCountry = preference.country;
-        _currentFileName = preference.currentCurrencyName;
+        if (preference.currency && preference.name && preference.country && preference.currentCurrencyName) {
+            _referenceCurrency = preference.currency;
+            _referenceFileName = preference.name;
+            _currentCountry = preference.country;
+            _currentFileName = preference.currentCurrencyName;
+        }
     }
 
     function setReferenceCurrencyData() {
@@ -285,7 +298,7 @@ var taux = (function () {
         //update the chart if exists
         if (_chart) {
             _chart.series[0].setData(taux);
-            _chart.setTitle({ text: _currentFileName });
+            //_chart.setTitle({ text: _currentFileName });
         }//else create it
         else {
             var widthContainer = document.getElementById("container").offsetWidth;
@@ -310,9 +323,9 @@ var taux = (function () {
                     inputEnabled: false,
                     selected: 0
                 },
-                title: {
+                /*title: {
                     text: _currentFileName
-                },
+                },*/
                 series: [{
                     data: taux,
                     shadow: true,
@@ -326,23 +339,34 @@ var taux = (function () {
         }
     }
 
-    /*var alreadyrunflag = 0;
+    /*function setupUpdater() {
+        var input = null;
+        if(document.getElementById('convertedNumber'))
+            input = document.getElementById('convertedNumber'),
+            oldValue = input.value,
+            timeout = null;
 
-    if (document.addEventListener)
-        document.addEventListener("DOMContentLoaded", function () {
-            alreadyrunflag = 1;
-            VanillaRunOnDomReady();
-        }, false);
-    else if (document.all && !window.opera) {
-        document.write('<script type="text/javascript" id="contentloadtag" defer="defer" src="javascript:void(0)"><\/script>');
-        var contentloadtag = document.getElementById("contentloadtag")
-        contentloadtag.onreadystatechange = function () {
-            if (this.readyState == "complete") {
-                alreadyrunflag = 1;
-                VanillaRunOnDomReady();
-            }
+        // handleChange is called 50ms after the user stops 
+        //   typing. 
+        function handleChange() {
+            var newValue = input.value;
+
+            if (newValue == oldValue || newValue == "") return; else oldValue = newValue;
+            _multiplicator = newValue;
+            refreshListeTaux();
         }
+
+        // eventHandler is called on keyboard and mouse events.
+        // If there is a pending timeout, it cancels it.
+        // It sets a timeout to call handleChange in 50ms. 
+        function eventHandler() {
+            if (timeout) clearTimeout(timeout);
+            timeout = setTimeout(handleChange, 50);
+        }
+        if (document.getElementById('convertedNumber'))
+            input.onkeydown = input.onkeyup = input.onclick = eventHandler;
     }*/
+    
 
     "use strict";
     return {
@@ -411,6 +435,20 @@ var taux = (function () {
                     kernel.manageException(error);
                 }
             );
+        },
+        handleChange: function () {
+            var newValue = document.getElementById('convertedNumber').value;
+            if (newValue == "") {
+                //document.getElementById('convertedNumber').value = 1;
+                newValue = 1;
+            }
+            var reContenuValide = /^[0-9]*\.?[0-9]+$/; //Only numbers
+            
+            if (parseInt(newValue) != NaN && parseFloat(newValue) != NaN && reContenuValide.test(newValue)) {
+                _multiplicator = newValue;
+                refreshListeTaux();
+                initializeCurrencyListNavigation();
+            }
         }
     };
     

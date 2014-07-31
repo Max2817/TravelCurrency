@@ -71,6 +71,7 @@
     <Content Include="css\focal-point.css" />
     <Content Include="css\game.css" />
     <Content Include="css\liste_taux.css" />
+    <Content Include="css\normalize.css" />
     <Content Include="default.html" />
     <Content Include="images\default-image.png" />
     <Content Include="images\default.jpg" />
