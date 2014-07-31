@@ -97,13 +97,13 @@ var listeTauxTemplates = (function () {
         },
         getPhotoTemplate: function (photoURL, currencyExtendedName) {
 
-            var buildContent = '<div class="focal-point down-5"><div>';
+            var buildContent = '<div class="focal-point down-5"><div class="img_wrapper">';
             buildContent += '<img id="imgCountry" src="';
             if (kernel.is_cached(photoURL) || kernel.doesConnectionExists())
                 buildContent += photoURL;
             else
                 buildContent += '../../../images/default-image.png';
-            buildContent += '" draggable="false" />';
+            buildContent += '" draggable="false" onload="imgLoaded(this)" />';
             buildContent += '</div></div>';
             buildContent += '<div class="black">';
             buildContent += '<p>' + currencyExtendedName + '</p>';

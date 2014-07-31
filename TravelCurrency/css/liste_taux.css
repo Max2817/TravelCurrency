@@ -173,6 +173,7 @@ background-image:         linear-gradient(top, #ffffff, #efefef);
 #photo {
     height : 40%;
     position: relative;
+    width:100%;
     /*position: relative; width: 200px; height: 150px; border: 1px solid black;*/
 }
 
@@ -207,6 +208,35 @@ background-image:         linear-gradient(top, #ffffff, #efefef);
   font-family:verdana;
 }
 
+/* Test Photo */
+.img_wrapper{
+    position: relative;
+    padding-top: 75%;
+    margin-bottom: 40px;
+    background: #fafafa;
+    overflow: hidden;
+}
+
+.img_wrapper img{
+    position: absolute;
+    width: 100%;
+    top: 0;
+    left: 0;
+    opacity: 0;
+  
+    -webkit-transition: opacity .5s;
+    -moz-transition: opacity .5s;
+    -ms-transition: opacity .5s;
+    transition: opacity .5s;
+}
+
+.img_wrapper.loaded img{
+    opacity: 1;
+}
+
+.img_wrapper.loaded .css_spinner{
+    display: none;
+}
 
 
 /*
