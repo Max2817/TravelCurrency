@@ -34,5 +34,6 @@
     "lblWednesday": "Mercredi", 
     "lblThursday": "Jeudi", 
     "lblFriday": "Vendredi", 
-    "lblSaturday": "Samedi"
+    "lblSaturday": "Samedi",
+    "lblBaseCurrency": "Devise de référence"
 }

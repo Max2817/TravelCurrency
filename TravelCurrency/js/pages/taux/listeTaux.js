@@ -153,6 +153,7 @@ var taux = (function () {
                 "currency": nouveauxTaux[rate].currency,
                 "filename": Taux.devises[nouveauxTaux[rate].currency].fileName,
                 "rate": nouveauxTaux[rate].rate,
+                "symbol": Taux.devises[nouveauxTaux[rate].currency].symbol,
                 "old": getOldData(nouveauxTaux[rate].currency, datesAnciensTaux)
             };
         }
@@ -176,6 +177,7 @@ var taux = (function () {
                             "currency": "EUR",
                             "filename": Taux.devises["EUR"].fileName,
                             "rate": convertionRate,
+                            "symbol": Taux.devises["EUR"].symbol,
                             "old": getOldData(refCur, datesAnciensTaux, convertionRate, true)
                         };
                         first = false;
@@ -188,6 +190,7 @@ var taux = (function () {
                             "currency": listeEUR[rate].currency,
                             "filename": Taux.devises[listeEUR[rate].currency].fileName,
                             "rate": listeEUR[rate].rate * convertionRate,
+                            "symbol": Taux.devises[listeEUR[rate].currency].symbol,
                             "old": getOldData(listeEUR[rate].currency, datesAnciensTaux, convertionRate)
                         };
                     }

@@ -3,11 +3,11 @@ var listeTauxTemplates = (function () {
     return {
         getBaseCurrencyHeader: function (referenceCurrency, listNouveauxTaux, multiplicator) {
             var buildContent = '<div id="entete">';
+            buildContent += '<div id="baseCurrencyTitle">' + _i18n.lblBaseCurrency + '</div>';
             buildContent += '<div id="choosenCurrency">';
             buildContent += '<img src="../../../images/flags/64/' + referenceCurrency.flag + '" alt="' + referenceCurrency.currency + '" class="thumbnail"/>';
             buildContent += '</div>';
             buildContent += '<div id="currencyList">';
-            buildContent += '<div id="curName"><input type="number" value="' + multiplicator + '" id="convertedNumber" maxlength="5" onKeyPress="return uiHelper.scanTouche(event);" onKeyUp="uiHelper.scanToucheSpe(event, taux.handleChange);" onChange="uiHelper.scanChamp(this)"></input><h2>' + referenceCurrency.filename + '</h2></div>';
             buildContent += '<div id="fields">';
             buildContent += '<select id="changeCurrency">';
             buildContent += '<option value="">' + _i18n.lblChangeCurrency + '</option>';
@@ -16,6 +16,7 @@ var listeTauxTemplates = (function () {
             }
             buildContent += '</select>';
             buildContent += '</div>';
+            buildContent += '<div id="curName"><input type="number" value="' + multiplicator + '" id="convertedNumber" maxlength="5" onKeyPress="return uiHelper.scanTouche(event);" onKeyUp="uiHelper.scanToucheSpe(event, taux.handleChange);" onChange="uiHelper.scanChamp(this)"></input><h2>' + referenceCurrency.filename + '</h2></div>';
             buildContent += '</div>';
             buildContent += '</div>';
             return buildContent;
@@ -32,7 +33,7 @@ var listeTauxTemplates = (function () {
                 buildContent += '<div class="newTauxValue"><h2>' + nouveauTaux.filename + '</h2>';
                 //buildContent += '<p class="taux">' + multiplicator + ' ' + referenceCurrency.currency + '<span class="price">';
                 buildContent += '<p class="taux"><span class="price">';
-                buildContent += ' = '+ formatHelper.formatFloat(nouveauTaux.rate*multiplicator) + ' ' + nouveauTaux.currency + '</span></p></div>';
+                buildContent += ' = ' + formatHelper.formatFloat(nouveauTaux.rate * multiplicator) + ' ' + nouveauTaux.symbol + ' (' + nouveauTaux.currency + ')</span></p></div>';
                 buildContent += '</li></a>';
             }
             buildContent += '</ul>';

@@ -35,7 +35,7 @@ body{
 
 #header {
     width:100%;
-    height:10%;
+    height:15%;
     position: relative;
     float:left;
     /*background-color: beige¨*/
@@ -52,7 +52,7 @@ body{
 
 #currencies {
     width:100%;
-    height:90%;
+    height:85%;
     position: relative;
     float:left; 
     clear: left;
@@ -63,6 +63,10 @@ body{
     width: 20%;
     height:100%;
     float:left;
+}
+
+#baseCurrencyTitle {
+    padding:1%;
 }
 
 #currencyList {
@@ -83,7 +87,8 @@ body{
    padding-top:3%; 
 }
 #fields {
-    height:50%;
+    height:49%;
+    margin-top:1%;
 }
 #convertedNumber {
     float:left;
