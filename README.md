@@ -21,8 +21,14 @@ http://apps.microsoft.com/windows/app/travel-currency/78fc5a72-2b6d-4f30-9f83-9d
 
 Notes
 -----
-**3rd version**
 
+**4th version**
+UPDATES: 
+- Currencies symbols added;
+- Users can now use the converter ;
+- Minor bug corrected.
+
+**3rd version**
 UPDATES:
 - Graph display changed, data clarity improved;
 - Currency list display modified , current pattern is 1 US Dollar = 0,7 Euro ;
