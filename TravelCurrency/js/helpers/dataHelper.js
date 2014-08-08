@@ -31,7 +31,6 @@ var dataHelper = (function () {
                         response.resolve(request);
                     } else {
                         response.reject("HTTP " + request.status + " for " + URI);
-                        //console.error(httpRequest.status);
                         if (request.status == 0)
                             response.reject("Serveur de synchronisation indisponible - " + URI);
                         else if (request.status == 404)
@@ -47,7 +46,6 @@ var dataHelper = (function () {
                     }
                 }
             };
-            //timeout && setTimeout(response.reject, timeout);
             request.send('');
             return response.promise;
         },
@@ -91,7 +89,6 @@ var dataHelper = (function () {
         },
         initializeListeTaux: function (url, fileName) {
             var response = Q.defer();
-            //console.log("initialize liste taux" + new Date());
             dataHelper.callXhr(url, "text")
                 .fail(function (error) {
                     var error = new Error("Ajax request to the Flickr API failed.");
@@ -102,13 +99,11 @@ var dataHelper = (function () {
                 )
                 .done(
                     function (result) {
-                        //console.log("initialize liste taux avant sauvegarde fichier" + new Date());
                         var fileContent = result.responseText;
                         apiHelper.saveFile(
                             fileName,
                             fileContent,
                             function () {
-                                //console.log("fin initialize liste taux " + new Date());
                                 response.resolve("OK");
                             },
                             function () {
@@ -128,7 +123,6 @@ var dataHelper = (function () {
             var tauxInfos = null;
             var promises = [];
             var response = Q.defer();
-            //console.log("debut enregistrement photos " + new Date());
             for (var name in Taux.devises) {
                 if (Taux.devises.hasOwnProperty(name)) {
                     tauxInfos = Taux.devises[name];
@@ -140,7 +134,6 @@ var dataHelper = (function () {
             .then(function (results) {
                 var fileContent = '<?xml version="1.0" encoding="utf-8"?>';
                 fileContent += '\r<photos>';
-                //Ecriture dans un fichier et enregistrement
                 var i = 0;
                 for (var name in Taux.devises) {
                     if (Taux.devises.hasOwnProperty(name)) {
@@ -157,7 +150,6 @@ var dataHelper = (function () {
                     "url_photos",
                     fileContent,
                     function () {
-                        //console.log("fin initialize liste taux " + new Date());
                         response.resolve("OK");
                     },
                     function () {
@@ -171,8 +163,8 @@ var dataHelper = (function () {
            return response.promise;
         },
 
-        //Fonction de téléchargement des photos
-        /* récupération de cette adresse pour l'image
+        //Loading photo function
+        /* Getting the image url
         * http://farm{farm-id}.staticflickr.com/{server-id}/{id}_{secret}.jpg
         *   or
         * http://farm{farm-id}.staticflickr.com/{server-id}/{id}_{secret}_[mstzb].jpg
@@ -203,7 +195,6 @@ var dataHelper = (function () {
                 "nojsoncallback": "1",
                 "per_page":"10"
             };
-            //console.log("debut initialize photo " + fileName + new Date());
             dataHelper.callXhr(url, "", parameters).done(
                 function (result) {
                     var buildContent = "";
@@ -219,7 +210,7 @@ var dataHelper = (function () {
                             } else {
                                 result = obj.photos.photo;
                             }
-                            //enregistrer la photo
+                            //return the url
                             var photoUrl = "http://farm" + result.farm + ".staticflickr.com/" + result.server + "/" + result.id + "_" + result.secret + "_z.jpg";
                             response.resolve(photoUrl);
                             /*s	petit carré 75x75
@@ -244,6 +235,7 @@ var dataHelper = (function () {
             );
             return response.promise;
         },
+        //unused by now
         downloadPhoto: function () {
             dataHelper.callXhr(photoUrl, "arraybuffer").done(
                 function (result) {

@@ -1,8 +1,5 @@
 ﻿/// <reference path="kernelSpecific.js" />
 
-// Structure contenant les informations de la session utilisateur
-var session;
-
 // Gestion des erreurs non interceptées
 window.onerror = function (msg, url, num) {
     kernel.manageException({ message: kernelSpecific.getPageFromUrl(url) + " " + i18n["lblLigne"] + " " + num + " : " + msg });
@@ -14,7 +11,7 @@ var kernel = (function () {
 
     var busy = false;
     var busyFrom;
-    var busyDefaultTimeout = 5000; // Le verrou est supprimé si l'application n'a pas répondu au bout de 2 secondes
+    var busyDefaultTimeout = 5000; // Locker is suppressed if not responding by this time
 
     function replaceParamsInErrorMsg(/*@type(String)*/message, /*@type(Array)*/parameters) {
         for (var i = 0; i < parameters.length; i++) {
@@ -47,7 +44,7 @@ var kernel = (function () {
 
     var arrayErrors = new Array();
     return {
-        // Gère une exception bloquante inattendue 
+        
         manageException: function (/*@exception*/ exception) {
             var now = new Date();
             var erreur = now.toLocaleString() + " : ";
@@ -56,46 +53,14 @@ var kernel = (function () {
             else
                 erreur += exception.message;
             console.error(erreur);
-            // On récupère l'état courant de la session
-            // TODO tracer l'erreur dans un dump ou dans une table ou les deux
             kernelSpecific.popupException(erreur);
         },
 
-        // Gère une exception bloquante inattendue 
+        // Manage unexpected blocking error 
         manageErrorWithPopUpOneButton: function (erreur, buttonName, validateCallBack, tempMsg) {
-            //console.error(erreur);
-            // On récupère l'état courant de la session
-            // TODO tracer l'erreur dans un dump ou dans une table ou les deux
             kernelSpecific.popupOneButton(erreur, buttonName, validateCallBack, tempMsg);
         },
-
-        // Anime une liste d'élément du DOM à l'affiche de la page
-        enterPageAnimation: function (/*@String[]*/ DOMElementsId) {
-            //var toAnimate=["section","navigation","header","precedent","baraction"];
-            for (var i = 0; i < DOMElementsId.length; i++) {
-                if (DOMElementsId[i] == "body") {
-                    document.getElementsByTagName(DOMElementsId[i])[0].className = "enterPage_animElem";
-                }
-                else {
-                    document.getElementById(DOMElementsId[i]).className = "scrollall enterPage_animElem";
-                }
-            }
-        },
-
-        // Anime une liste d'élément du DOM à l'update de la page
-        updatePageAnimation: function (/*@String[]*/ DOMElementsId) {
-            for (var i = 0; i < DOMElementsId.length; i++) {
-                if (DOMElementsId[i] == "body") {
-                    document.getElementsByTagName(DOMElementsId[i])[0].className = "";
-                    setTimeout(function () { document.getElementsByTagName("body")[0].className = "enterPage_animElem"; }, 50);
-                }
-                else {
-                    document.getElementById(DOMElementsId[i]).className = "scrollall";
-                    document.getElementById(DOMElementsId[i]).style.display = "none";
-                    anim(document.getElementById(DOMElementsId[i]));
-                }
-            }
-        },
+        //check connection
         doesConnectionExists: function() {
             var xhr = new XMLHttpRequest();
             var file = "http://www.kirupa.com/blank.png?rand=6544";
@@ -120,7 +85,7 @@ var kernel = (function () {
             imgEle.src = img_url;
             return imgEle.complete || (imgEle.width+imgEle.height) > 0;
         },
-        // Gestion de la navigation
+        // Managing navigation
         navigate: function (/*@type(String)*/ url, /*@type(Variant)*/ params) {
             if (logLevel == logLevels.DEBUG) console.warn("navigate " + url);
             if (!kernel.isBusy()) {
@@ -145,27 +110,7 @@ var kernel = (function () {
         // Initialisation de la transaction
         initialize: function () {
 
-            // On récupère la session dans le sessionStorage
-            if (window.sessionStorage.getItem("session")) {
-                session = JSON.parse(window.sessionStorage.getItem("session"));
-            }
-            else {
-                session = {
-                    "url": "",
-                    "urlParams": "",
-                    "sessionUser": "",
-                    "AppExecutionState": ""
-                };
-            }
-
-            if (logLevel == logLevels.DEBUG) console.warn("initialize" + session.url);
-
-            // Lorsqu'on revient sur la page d'accueil, on nettoie la session
-            if (session.url == "/pages/accueil/accueil.html") {
-                session.EDL = null;
-            }
-
-            // On applique l'internationnalisation de la page sur l'ensemble des conteneurs exposant l'attribut data-label-id
+            // calling internationalization on data-label-id attributes of HTML elements
             var conteneurs = ["title", "div", "span", "p", "button", "option", "label", "h3"];
             for (var c = 0; c < conteneurs.length; c++) {
                 var elements = document.getElementsByTagName(conteneurs[c]);
@@ -182,12 +127,12 @@ var kernel = (function () {
                 }
             }
 
-            // On appelle l'initialisation spécifique de la page
+            // calling initialize function
             try {
                 initialize(session.urlParams, function () {
-                    // On gère une restauration de contexte sur cette page
+                    // context restauration
                     if (session.AppExecutionState == "restore") {
-                        // On restaure l'état sauvegardé lors du déchargement de l'application
+                        // restore what was saved
                         try {
                             restoreContext(JSON.parse(window.localStorage.getItem("context")));
                         } catch (exception) {
@@ -200,14 +145,6 @@ var kernel = (function () {
                 });
             } catch (exception) {
                 kernel.manageException(exception);
-            }
-
-            // On gère automatiquement l'animation en entrée de page
-            if (document.getElementById("navigation")) {
-                kernel.enterPageAnimation(["section"]);
-            }
-            else if (document.getElementsByTagName("body")[0]) {
-                kernel.enterPageAnimation(["body"]);
             }
         },
 

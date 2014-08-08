@@ -1,6 +1,7 @@
 ﻿/// <reference path="../../helpers/formatHelper.js" />
 var listeTauxTemplates = (function () {
     return {
+        //template on top of the new rates list
         getBaseCurrencyHeader: function (referenceCurrency, listNouveauxTaux, multiplicator) {
             var buildContent = '<div id="entete">';
             buildContent += '<div id="baseCurrencyTitle">' + _i18n.lblBaseCurrency + '</div>';
@@ -16,12 +17,12 @@ var listeTauxTemplates = (function () {
             }
             buildContent += '</select>';
             buildContent += '</div>';
-            buildContent += '<div id="curName"><input type="number" value="' + multiplicator + '" id="convertedNumber" maxlength="5" onKeyPress="return uiHelper.scanTouche(event);" onKeyUp="uiHelper.scanToucheSpe(event, taux.handleChange);" onChange="uiHelper.scanChamp(this)"></input><h2>' + referenceCurrency.filename + '</h2></div>';
+            buildContent += '<div id="curName"><input type="number" placeholder="1" value="' + multiplicator + '" id="convertedNumber" maxlength="5" onKeyPress="return uiHelper.scanTouche(event);" onKeyUp="uiHelper.scanToucheSpe(event, taux.handleChange);" onChange="uiHelper.scanChamp(this)"></input><h2>' + referenceCurrency.filename + '</h2></div>';
             buildContent += '</div>';
             buildContent += '</div>';
             return buildContent;
         },
-
+        //template of the new rates list
         getListeNouveauxTauxTemplate: function (referenceCurrency, listNouveauxTaux, multiplicator) {
             var buildContent = '';
             buildContent += '<ul id="nouveauxTaux">';
@@ -31,7 +32,6 @@ var listeTauxTemplates = (function () {
                 buildContent += '<li id="li_' + nouveauTaux.currency + '">';
                 buildContent += '<img src="../../../images/flags/64/' + nouveauTaux.flag + '" alt="' + nouveauTaux.currency + '" class="thumbnail"/>';
                 buildContent += '<div class="newTauxValue"><h2>' + nouveauTaux.filename + '</h2>';
-                //buildContent += '<p class="taux">' + multiplicator + ' ' + referenceCurrency.currency + '<span class="price">';
                 buildContent += '<p class="taux"><span class="price">';
                 buildContent += ' = ' + formatHelper.formatFloat(nouveauTaux.rate * multiplicator) + ' ' + nouveauTaux.symbol + ' (' + nouveauTaux.currency + ')</span></p></div>';
                 buildContent += '</li></a>';
@@ -39,63 +39,7 @@ var listeTauxTemplates = (function () {
             buildContent += '</ul>';
             return buildContent;
         },
-        getListeAnciensTauxTemplate: function (anciensTaux) {
-            var buildContent = '<div id="scale">'
-                + '<div id="limit-top">'
-                + '</div>'
-                + '<div id="scale-top">'
-                    + '<span>'
-                        + 'Max.\n';
-            buildContent += formatHelper.formatFloat(anciensTaux.max);
-            buildContent += '</span>'
-                + '</div>'
-                + '<div id="scale-middle">'
-                + '</div>'
-                + '<div id="scale-bottom">'
-                    + '<span>'
-                        + 'Min.\n';
-            buildContent += formatHelper.formatFloat(anciensTaux.min);
-            buildContent += '</span>'
-                + '</div>'
-                + '<div id="limit-bottom">'
-                + '</div>'
-                + '</div>';
-                buildContent += '<ul class="barchart">';
-            var taux = null;
-            var listeAnciensTaux = anciensTaux.values;
-            var dateTaux = null;
-            var year = null;
-            var month = null;
-            var day = null;
-            var currentMonth = null;
-            var currentYear = null;
-            for (var index in listeAnciensTaux) {
-                taux = listeAnciensTaux[index];
-                dateTaux = taux.currentDate.split("-");
-                year = dateTaux[0];
-                month = dateTaux[1];
-                day = dateTaux[2];
-                if (index == 0) {
-                    currentMonth = month;
-                    currentYear = year;
-                    buildContent += '<li class="year">' + formatHelper.getMonthString(month) + '</li>';
-                } else {
-                    if (parseInt(currentYear) == parseInt(year) && parseInt(month) < parseInt(currentMonth) || parseInt(currentYear) > parseInt(year)) {
-                        currentMonth = month;
-                        currentYear = year;
-                        buildContent += '<li class="year">' + formatHelper.getMonthString(month) + '</li>';
-                    }
-                }
-
-                buildContent += '<li id="old_' + index + '">';
-                //buildContent += '<span></span>';
-                buildContent += day + '<br />';
-                //buildContent += '<p class="taux">Taux :  <span class="price">' + formatHelper.formatFloat(taux.rate) + '</span></p>';
-                buildContent += '</li></a>';  
-            }
-            buildContent += '</ul>';
-            return buildContent;
-        },
+        //Photo template
         getPhotoTemplate: function (photoURL, currencyExtendedName) {
 
             var buildContent = '<div class="focal-point down-5"><div class="img_wrapper">';

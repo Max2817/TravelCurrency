@@ -17,7 +17,7 @@ function UI_GetLocale() {
     else
         return "en";
 }
-
+//includes all HTML inclusions
 MSApp.execUnsafeLocalFunction(function () {
     try {
 

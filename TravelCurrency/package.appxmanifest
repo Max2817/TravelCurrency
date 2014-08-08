@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/2010/manifest">
-  <Identity Name="9922MaJaTeam.TravelCurrency" Version="1.0.0.2" Publisher="CN=2393B55F-E6B6-4E11-99E3-81FFAB18801C" />
+  <Identity Name="9922MaJaTeam.TravelCurrency" Version="1.0.0.3" Publisher="CN=2393B55F-E6B6-4E11-99E3-81FFAB18801C" />
   <Properties>
     <DisplayName>Travel Currency</DisplayName>
     <PublisherDisplayName>MaJa Team</PublisherDisplayName>

@@ -35,5 +35,10 @@
     "lblThursday": "Jeudi", 
     "lblFriday": "Vendredi", 
     "lblSaturday": "Samedi",
-    "lblBaseCurrency": "Devise de référence"
+    "lblBaseCurrency": "Devise de référence",
+    "lblConnectionProblem": "Problème de connexion",
+    "lblConnectInternet": "Pas de connexion. Veuillez connecter votre appareil à Internet",
+    "lblRetry": "Réessayer",
+    "lblConnectionFailed": "Tentative de connexion échouée !",
+    "lblNewAttempt": "Nouvelle tentative de connexion..."
 }

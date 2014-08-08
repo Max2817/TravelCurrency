@@ -6,36 +6,45 @@
 /// <reference path="../../helpers/highstock.js" />
 
 var taux = (function () {
+    //If preferences are not set use this defined data
     var _referenceCurrency = "EUR";
     var _referenceFileName = "Euro";
     var _currentCountry = "USD";
     var _currentFileName = "US Dollar";
-    var _currentSymbol = "Kč";
     var _nouveauxTaux = {};
-    var _referenceCurrencyData, _currencyList = {};
+    var _referenceCurrencyData = {};
     var _photoURL, _listePhotosURL = null;
     var _chart = null;
+    //init converted value
     var _multiplicator = 1;
 
+    //initialize data into template
     function initializeData(listeNouveauxTaux, listeAnciensTaux, listePhotosURL, preferences) {
+        //if user choose a base and a comparison currency we load it here
         if (preferences) {
             getPreferences(preferences);
         }
+        //return big object containing the currencies, the new and the old data
         getNewData(listeNouveauxTaux, listeAnciensTaux);
+        //list of photos URL
         _listePhotosURL = listePhotosURL;
+        //Display data in templates
         refresh();
-        //on enlève la wheel et on met le contenu
+        //show off the wheel and show content
         if (document.getElementById("content"))
             document.getElementById("content").style.visibility = 'visible';
     }
     
+    //display data in template
     function refresh() {
-        setCurrencyList();
+        //set header data on top of the comparison list
         uiHelper.pushContent("header", listeTauxTemplates.getBaseCurrencyHeader(_referenceCurrencyData, _nouveauxTaux[_referenceCurrency], _multiplicator));
+        //set comparison list template
         refreshListeTaux();
+        //set photo and old data templates
         refreshPhotoOldList();
     }
-
+    //refresh new currency list template
     function refreshListeTaux() {
         uiHelper.pushContent("currencies", listeTauxTemplates.getListeNouveauxTauxTemplate(_referenceCurrencyData, _nouveauxTaux[_referenceCurrency], _multiplicator));
         if (document.getElementById("li_" + _currentCountry)) {
@@ -43,7 +52,7 @@ var taux = (function () {
             document.getElementById("li_" + _currentCountry).scrollIntoView();
         }
     }
-
+    //refresh photo and chart
     function refreshPhotoOldList() {
         getPhotoURLFromListe();
         uiHelper.pushContent("photo", listeTauxTemplates.getPhotoTemplate(_photoURL, _currentFileName));
@@ -51,21 +60,10 @@ var taux = (function () {
         setChart(anciensTaux.values);
     }
 
-    function setCurrencyList() {
-        var i = 0;
-        for (var name in Taux.devises) {
-            if (Taux.devises.hasOwnProperty(name) && Taux.devises[name].fileName != _referenceFileName) {
-                _currencyList[i] = {};
-                _currencyList[i].fileName = Taux.devises[name].fileName;
-                _currencyList[i].currency = name;
-                i++;
-            }
-        }
-    }
-
+    //initialize events
     function initializeNavigation() {
         initializeCurrencyListNavigation();
-        initializeBaseCurrencyListNavigation(); 
+        initializeBaseCurrencyListNavigation();
     }
 
     function initializeCurrencyListNavigation() {
@@ -81,7 +79,7 @@ var taux = (function () {
                         _currentCountry = clickedCountry;
                         _currentFileName = clickedCurrencyName;
 
-                        //Sauvegarde des préférences
+                        //saving preferences
                         dataHelper.savePreferences(_referenceCurrency, _referenceFileName, _currentCountry, _currentFileName,
                             function () {
                                 refreshPhotoOldList();
@@ -106,7 +104,7 @@ var taux = (function () {
                 var filename = el.options[el.selectedIndex].text;
                 var nouveauTaux = el.options[el.selectedIndex].getAttribute("data-convertion-rate");
                 if (currency !== "") {
-                    //Remplacement des données de la lise
+                    //Replacing new currency list
                     _referenceCurrency = currency;
                     _referenceFileName = filename;
                     setReferenceCurrencyData();
@@ -117,11 +115,11 @@ var taux = (function () {
                             break;
                         }
                     }
-                    //Sauvegarde des préférences
+                    //Saving preferences
                     dataHelper.savePreferences(_referenceCurrency, _referenceFileName, _currentCountry, _currentFileName,
                         function () {
+                            //refreshing data and templates
                             refresh();
-                            //Sauvegarde des préférences
                             initializeNavigation();
                         },
                         function (error) {
@@ -132,18 +130,22 @@ var taux = (function () {
             });
         }
     }
-
+    //Parsing files containing XML data of new and old currencies
     function getNewData(listeNouveauxTaux, listeAnciensTaux) {
-        //Lecture de la liste des nouveaux taux
+        //for each currency of the European Central Bank given we calculate each 
+        //comparison with the other datas for the old currencies
+        //Reading the new currency list
         var parser = new DOMParser();
         var xmldom = parser.parseFromString(listeNouveauxTaux, "text/xml");
         var obj = formatHelper.XML2jsobj(xmldom.documentElement);
         var nouveauxTaux = obj.Cube.Cube.Cube;
-        //Lecture de la liste des anciens taux
+        //Reading the old data
         xmldom = parser.parseFromString(listeAnciensTaux, "text/xml");
         obj = formatHelper.XML2jsobj(xmldom.documentElement);
         var datesAnciensTaux = obj.Cube.Cube;
         var listeTaux = {};
+        //building the object
+        //The Euro part not given by the euro central bank must be calculated apart
         for (var rate in nouveauxTaux) {
             if (_referenceCurrency == "EUR" || nouveauxTaux[rate].currency == _referenceCurrency) {
                 setReferenceCurrencyData();
@@ -159,14 +161,13 @@ var taux = (function () {
         }
         _nouveauxTaux["EUR"] = listeTaux;
         var listeEUR = _nouveauxTaux["EUR"];
-        //Calculs des autres taux 
+        //calculation of the other currencies
         var devises = Taux.devises;
-        //Pour chacune des devises excepté la première que nous avons déjà calculé
+        //For each currency except Euro
         var refCur = _referenceCurrency;
         for (var index in devises) {
             if (index !== "EUR" && listeEUR[index]) {
                 refCur = index;
-                //On parcours la liste des devises et on saute la courante
                 var listeTaux = {};
                 var convertionRate = 1 / listeEUR[index].rate;
                 var first = true;
@@ -199,12 +200,11 @@ var taux = (function () {
                 _nouveauxTaux[index] = listeTaux;
             }
         }
-        //_referenceCurrency = "EUR";
-
     }
 
+    //get the user saved preferences 
     function getPreferences(preferences) {
-        //Lecture des preferences
+        //Reading
         var parser = new DOMParser();
         var xmldom = parser.parseFromString(preferences, "text/xml");
         var obj = formatHelper.XML2jsobj(xmldom.documentElement);
@@ -216,7 +216,7 @@ var taux = (function () {
             _currentFileName = preference.currentCurrencyName;
         }
     }
-
+    //set the data for the header
     function setReferenceCurrencyData() {
         _referenceCurrencyData = {
             "flag": Taux.devises[_referenceCurrency].flag,
@@ -224,7 +224,7 @@ var taux = (function () {
             "filename": Taux.devises[_referenceCurrency].fileName
         }
     }
-
+    //extract the old rates for the chart
     function getOldData(currency, datesAnciensTaux, rateConvertion, euro) {  
         var currentDate = null;
         var currencyList = null;
@@ -269,17 +269,7 @@ var taux = (function () {
         return old;
     }
 
-    function getOldTauxFromList() {
-        for(var index in _nouveauxTaux){
-            if (_nouveauxTaux[index].currency === _currentCountry)
-                return _nouveauxTaux[index].old;
-        }
-    }
-
-    /*
-    * listePhotosURL : fileContent
-    * country : les 3 lettres du pays ex : USD
-    */
+    
     function getPhotoURLFromListe(){
         var parser = new DOMParser();
         var xmldom = parser.parseFromString(_listePhotosURL, "text/xml");
@@ -298,7 +288,6 @@ var taux = (function () {
         //update the chart if exists
         if (_chart) {
             _chart.series[0].setData(taux);
-            //_chart.setTitle({ text: _currentFileName });
         }//else create it
         else {
             var widthContainer = document.getElementById("container").offsetWidth;
@@ -323,9 +312,6 @@ var taux = (function () {
                     inputEnabled: false,
                     selected: 0
                 },
-                /*title: {
-                    text: _currentFileName
-                },*/
                 series: [{
                     data: taux,
                     shadow: true,
@@ -337,43 +323,13 @@ var taux = (function () {
 
             });
         }
-    }
-
-    /*function setupUpdater() {
-        var input = null;
-        if(document.getElementById('convertedNumber'))
-            input = document.getElementById('convertedNumber'),
-            oldValue = input.value,
-            timeout = null;
-
-        // handleChange is called 50ms after the user stops 
-        //   typing. 
-        function handleChange() {
-            var newValue = input.value;
-
-            if (newValue == oldValue || newValue == "") return; else oldValue = newValue;
-            _multiplicator = newValue;
-            refreshListeTaux();
-        }
-
-        // eventHandler is called on keyboard and mouse events.
-        // If there is a pending timeout, it cancels it.
-        // It sets a timeout to call handleChange in 50ms. 
-        function eventHandler() {
-            if (timeout) clearTimeout(timeout);
-            timeout = setTimeout(handleChange, 50);
-        }
-        if (document.getElementById('convertedNumber'))
-            input.onkeydown = input.onkeyup = input.onclick = eventHandler;
-    }*/
-    
+    }    
 
     "use strict";
     return {
         initialize: function (params, endInitializeCallBack) {
-            //Initialisation de la liste des taux
-            //Récupération des données de taux courant (si nécessaire)
-            //Ouverture du taux courant
+            //Init currencies lists, put datas in objects
+            //By reading the files of imported datas
             apiHelper.getAppFileByName(formatHelper.getDateYYYYMMDD().toString(),
                 function (filePath) {
                     apiHelper.readTextFile(filePath.path,
@@ -390,7 +346,7 @@ var taux = (function () {
                                                                 function (filePath) {
                                                                     apiHelper.readTextFile(filePath.path,
                                                                         function (preferences) {
-                                                                            //Récupération des préférences si des préférences existent
+                                                                            //getting preferences if they exist
                                                                             initializeData(listeNouveauxTaux, listeAnciensTaux, listePhotosURL, preferences);
                                                                             initializeNavigation();  
                                                                         },
@@ -400,7 +356,7 @@ var taux = (function () {
                                                                     );
                                                                 },
                                                                 function () {
-                                                                    //Récupération des préférences si des préférences existent
+                                                                    //If no preferences exist
                                                                     initializeData(listeNouveauxTaux, listeAnciensTaux, listePhotosURL);
                                                                     initializeNavigation();
                                                                 }
@@ -436,14 +392,13 @@ var taux = (function () {
                 }
             );
         },
+        //Handle the user changes on the convert input
         handleChange: function () {
             var newValue = document.getElementById('convertedNumber').value;
-            if (newValue == "") {
-                //document.getElementById('convertedNumber').value = 1;
-                newValue = 1;
-            }
+            newValue = newValue.replace(",", ".");
             var reContenuValide = /^[0-9]*\.?[0-9]+$/; //Only numbers
-            
+            if (newValue == "")
+                newValue = 1;
             if (parseInt(newValue) != NaN && parseFloat(newValue) != NaN && reContenuValide.test(newValue)) {
                 _multiplicator = newValue;
                 refreshListeTaux();
@@ -454,18 +409,7 @@ var taux = (function () {
     
 })();
 
-/* <licenses>
-    <license id="0" name="All Rights Reserved" url="" />
-    <license id="1" name="Attribution-NonCommercial-ShareAlike License" url="http://creativecommons.org/licenses/by-nc-sa/2.0/" />
-    <license id="2" name="Attribution-NonCommercial License" url="http://creativecommons.org/licenses/by-nc/2.0/" />
-    <license id="3" name="Attribution-NonCommercial-NoDerivs License" url="http://creativecommons.org/licenses/by-nc-nd/2.0/" />
-    <license id="4" name="Attribution License" url="http://creativecommons.org/licenses/by/2.0/" />
-    <license id="5" name="Attribution-ShareAlike License" url="http://creativecommons.org/licenses/by-sa/2.0/" />
-    <license id="6" name="Attribution-NoDerivs License" url="http://creativecommons.org/licenses/by-nd/2.0/" />
-    <license id="7" name="No known copyright restrictions" url="http://flickr.com/commons/usage/" />
-    <license id="8" name="United States Government Work" url="http://www.usa.gov/copyright.shtml" />
-  </licenses> */
-//Affichage de la photo
+//Display image after loading
 function imgLoaded(img) {
     var imgWrapper = img.parentNode;
 

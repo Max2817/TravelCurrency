@@ -17,30 +17,24 @@
         if (args.kind == activation.ActivationKind.launch) {
             if (args.previousExecutionState !== Windows.ApplicationModel.Activation.ApplicationExecutionState.terminated) {
                 setTimeout(function () {
-                    //Suppression des anciens fichiers téléchargés
+                    //Suppress old files
                     apiHelper.deleteLocalFolderItems();
                     checkDownloadedData(
                         function () {
-                            kernel.navigateSinglePage("/js/pages/taux/listeTaux.html", taux); //template, controleur de ta page
+                            kernel.navigateSinglePage("/js/pages/taux/listeTaux.html", taux); //template, page controler
                         },
                         function () {
                             downloadData(function () {
-                                kernel.navigateSinglePage("/js/pages/taux/listeTaux.html", taux); //template, controleur de ta page
+                                kernel.navigateSinglePage("/js/pages/taux/listeTaux.html", taux); //template, page controler
                             },
                             function () {
-                                kernel.manageException("Problème de connexion");
+                                kernel.manageException(_i18n.lblConnectionProblem);
                             });
                         }
                     );
                 }, 1000);
                 
                 
-            } else {
-                // cette application a été réactivée après avoir été suspendue.
-                console.info("restauration de l'application");
-                session = JSON.parse(window.localStorage.getItem("session"));
-                session.AppExecutionState = "restore";
-                setTimeout(function () { kernel.navigate(session.url, session.urlParams); }, 500);
             }
         } else {
             kernel.navigate("/pages/connexion/connexion.html", UserService.isUsers());
@@ -60,20 +54,18 @@
 
 
 function downloadData(successCallBack, errorCallBack) {
-    // console.log("Avant QAll" + new Date());
     var online = navigator.onLine;
     if (kernel.doesConnectionExists()) {
-
+        //getting all data with promises
         Q.all([
             dataHelper.downloadNewTaux(),
             dataHelper.downloadOldTaux(),
             dataHelper.enregistrementPhotos()
         ]).spread(function (result1, result2, result3) {
             if (result1 == "OK" && result2 == "OK" && result3 == "OK") {
-                //console.log("FIN récup de tout " + new Date());
                 successCallBack();
             } else {
-                //TODO : relancer les téléchargements
+                //TODO : launch downloading again
                 errorCallBack();
             }
         },
@@ -87,19 +79,19 @@ function downloadData(successCallBack, errorCallBack) {
         );
     } else {
         kernel.manageErrorWithPopUpOneButton(
-            "Pas de connexion. Veuillez connecter votre appareil à Internet",
-            "Réessayer",
+            _i18n.lblConnectInternet,
+            _i18n.lblRetry,
             //En cas de validation rappeler le downloadData
             function () {
                 if (document.getElementById("popup_temp_msg"))
-                    document.getElementById("popup_temp_msg").innerText = "Nouvelle tentative de connexion...";
+                    document.getElementById("popup_temp_msg").innerText = _i18n.lblNewAttempt;
                 setTimeout(function () { downloadData(); }, 3000);
             },
-            "Tentative de connexion échouée !"
+            _i18n.lblConnectionFailed
         );
     }
 }
-
+//check if files are already downloaded, if true no need to download again
 function checkDownloadedData(successCallBack, errorCallBack) {
     var params = new Object();
     apiHelper.getAppFileByName(formatHelper.getDateYYYYMMDD().toString(),
