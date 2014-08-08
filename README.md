@@ -24,6 +24,11 @@ Notes
 
 **4th version**
 UPDATES: 
+- For developers : Added english comments;
+- Users can now use keypad of their keyboard;
+
+**4th version**
+UPDATES: 
 - Currencies symbols added;
 - Users can now use the converter ;
 - Minor bug corrected.
